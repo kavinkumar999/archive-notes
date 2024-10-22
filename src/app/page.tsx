@@ -43,9 +43,9 @@ export default function Home() {
               <div className='py-2 flex justify-between align-middle gap-2'>
                   <div>
                       <h3 className="text-lg font-bold">{blog.meta.title}</h3>
-                      <p className="text-gray-400">{blog.meta.description}</p>
+                      <p className="text-gray-500">{blog.meta.description}</p>
                   </div>
-                  <div className="my-auto text-gray-400">
+                  <div className="my-auto text-gray-500">
                       <p>{blog.meta.date}</p>
                   </div>
               </div>

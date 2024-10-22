@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "highlight.js/styles/github-dark.css";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import { ThemeProvider } from "./components/theme-provider"
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import AppSidebar from "./components/app-sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,7 +34,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarTrigger />
+              <main className="w-full px-14">
+                <Header></Header>
+                {children}
+                <Footer></Footer>
+              </main>
+            </SidebarProvider>
+          </ThemeProvider>
       </body>
     </html>
   );
