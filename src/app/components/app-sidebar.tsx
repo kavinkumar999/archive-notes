@@ -7,11 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
-  SidebarMenuSubButton,
 } from "@/components/ui/sidebar";
-
 
 const SystemDesignNotes = [
   {
@@ -31,45 +27,44 @@ const SystemDesignNotes = [
 export default function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="sidebar-bg">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-lg">Expert Notes</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <span>Front End Notes</span>
-                </SidebarMenuButton>
-                <SidebarMenuSub>
-                  {SystemDesignNotes.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </a>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  ))}
-                </SidebarMenuSub>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <span>System Design Notes</span>
-                </SidebarMenuButton>
-                <SidebarMenuSub>
-                  {SystemDesignNotes.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </a>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  ))}
-                </SidebarMenuSub>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
+          <SidebarGroupLabel className="text-3xl font-bold mb-6">Expert Notes</SidebarGroupLabel>
+          
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-2xl font-bold">Front End</SidebarGroupLabel>
+            <SidebarGroupContent className="mt-4">
+              <SidebarMenu>
+              {SystemDesignNotes.map((subItem) => (
+                  <SidebarMenuItem key={subItem.title} className="hover:bg-red-700 active:bg-red-700">
+                    <SidebarMenuButton asChild>
+                      <a href={subItem.url} className="text-lg dark:hover:text-gray-400">
+                        {subItem.title}
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-2xl font-bold">System Design</SidebarGroupLabel>
+            <SidebarGroupContent className="mt-4">
+              <SidebarMenu>
+              {SystemDesignNotes.map((subItem) => (
+                  <SidebarMenuItem key={subItem.title}>
+                    <SidebarMenuButton asChild>
+                      <a href={subItem.url} className="text-lg dark:hover:text-gray-400">
+                        {subItem.title}
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+          
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

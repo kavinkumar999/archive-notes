@@ -27,7 +27,7 @@ export default function Home() {
   
   return (
     <main className="flex flex-col">
-      <h1 className="text-3xl font-bold">
+      <h1 className="text-3xl font-bold text-primary">
         My Blogging Site
       </h1>
 
