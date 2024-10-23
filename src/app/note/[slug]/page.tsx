@@ -22,11 +22,11 @@ const components = {
 };
 
 export async function generateStaticParams() {
-  const blogDir = "src/app/blogs"
-  const blogPath = path.join(process.cwd(), blogDir)
+  const _dir = "src/app/frontend"
+  const _path = path.join(process.cwd(), _dir)
 
-  console.log(blogPath)
-  const files = fs.readdirSync(path.join(blogPath));
+  console.log(_path)
+  const files = fs.readdirSync(path.join(_path));
 
   const paths = files.map(filename => ({
       slug: filename.replace('.mdx', '')
@@ -36,19 +36,19 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params } : any) {
-  const blog = getPost(params);
+  const notes = getPost(params);
 
   return{
-      title: blog.frontMatter.title,
-      description: blog.frontMatter.description,
+      title: notes.frontMatter.title,
+      description: notes.frontMatter.description,
   }
 }
 
 function getPost({slug}:{slug : string}){
-  const blogDir = "src/app/blogs"
-  const blogPath = path.join(process.cwd(), blogDir)
+  const _dir = "src/app/frontend"
+  const _path = path.join(process.cwd(), _dir)
 
-  const markdownFile = fs.readFileSync(path.join(blogPath,slug + '.mdx'), 'utf-8')
+  const markdownFile = fs.readFileSync(path.join(_path,slug + '.mdx'), 'utf-8')
 
   const { data: frontMatter, content } = matter(markdownFile)
 
@@ -59,7 +59,6 @@ function getPost({slug}:{slug : string}){
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Post({ params } :any) {
  
   const props = getPost(params);
