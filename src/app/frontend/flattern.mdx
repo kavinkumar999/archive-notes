@@ -1,6 +1,7 @@
 ---
 title: Flatten
-url: /blog/flattern
+url: /note/flattern
+tag: frontend
 ---
 
 Write a `flatten` function that takes in a value and returns a flattened version of that value.
@@ -34,4 +35,53 @@ flatten([
   [3],
   { a: 4, b: { c: 5, d: [6, 7, [8, 9, [10]] } }]
 ); // [1, 2, 3, { a: 4, c: 5, d: [6, 7, 8, 9, 10] }]
+```
+
+## Solution
+
+
+```javascript
+function flatten (value) {
+  if (typeof value !== 'object' || value === null) {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return flattenArray(value);
+  }
+
+  return flattenObject(value);
+}
+
+function flattenArray (value) {
+  let flattenedArray = [];
+
+  for (let elm of value) {
+    if (typeof elm !== 'object' || elm === null) {
+      flattenedArray = flattenedArray.concat(elm);
+    } else if (Array.isArray(elm)) {
+      flattenedArray = flattenedArray.concat(flattenArray(elm));
+    } else {
+      flattenedArray = flattenedArray.concat(flattenObject(elm));
+    }
+  }
+
+  return flattenedArray;
+}
+
+function flattenObject (value) {
+  let flattenedObject = {};
+
+  for (let [key, elm] of Object.entries(value)) {
+    if (typeof elm !== 'object' || elm === null) {
+      flattenedObject[key] = elm;
+    } else if (Array.isArray(elm)) {
+      flattenedObject[key] = flattenArray(elm);
+    } else {
+      Object.assign(flattenedObject, flattenObject(elm));
+    }
+  }
+
+  return flattenedObject;
+}
 ```
