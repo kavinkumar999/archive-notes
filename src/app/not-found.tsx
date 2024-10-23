@@ -8,7 +8,7 @@ const NotFound = () => {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen w-full flex items-start justify-center p-4 bg-background">
+    <div className="min-h-fit w-full flex items-start justify-center p-4 bg-background">
       <Card className="max-w-md w-full p-8 text-center space-y-6">
         <div className="space-y-2">
           <h1 className="text-8xl font-bold text-primary">404</h1>
@@ -18,7 +18,6 @@ const NotFound = () => {
           </p>
         </div>
 
-        {/* Fun ASCII Art */}
         <pre className="font-mono text-sm text-muted-foreground">
           {`     ___     
     (o,o)    

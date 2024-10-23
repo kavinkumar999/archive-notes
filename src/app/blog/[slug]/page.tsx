@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -18,6 +17,9 @@ const options = {
       ],
     }
 }
+const components = {
+  Greet: ({ name }: any) => <p>Hello, {name}!</p>
+};
 
 export async function generateStaticParams() {
   const blogDir = "src/app/blogs"
@@ -63,10 +65,9 @@ export default function Post({ params } :any) {
   const props = getPost(params);
 
   return (
-      <article className='prose prose-sm md:prose-base lg:prose-lg prose-slate !prose-invert mx-auto'>
-          <h1>{props.frontMatter.title}</h1>
-          
-          <MDXRemote source={props.content} options={options}/>
+      <article className={`prose prose-sm md:prose-base lg:prose-lg prose-slate max-w-fit pr-16 dark:!prose-invert`}>
+        <h1>{props.frontMatter.title}</h1>
+        <MDXRemote source={props.content} options={options} components={components}/>
       </article>
   )
 }

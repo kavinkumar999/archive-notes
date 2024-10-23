@@ -1,6 +1,7 @@
 'use client';
 import hljs from 'highlight.js';
 import { useEffect } from 'react';
+import Footer from '../components/footer';
 
 function Layout({children}: Readonly<{children: React.ReactNode;}>) {
   useEffect(() => {
@@ -9,7 +10,10 @@ function Layout({children}: Readonly<{children: React.ReactNode;}>) {
     });
   }, []);
   return (
-    <div>{children}</div>
+    <div>
+      {children}
+      <Footer></Footer>
+    </div>
   )
 }
 
