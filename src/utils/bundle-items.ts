@@ -1,9 +1,9 @@
 import { SidebarItemProps, SidebarProps, SidebarGroupEnum } from '@/utils/type';
-import { frontendItems } from './frontend';
+import { frontendItems } from '@/utils/frontend';
 
 const hash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
-  [SidebarGroupEnum.SYSTEM_DESIGN]: frontendItems,
-  [SidebarGroupEnum.BACKEND]: frontendItems,
+  [SidebarGroupEnum.SYSTEM_DESIGN]: [],
+  [SidebarGroupEnum.BACKEND]: [],
   [SidebarGroupEnum.FRONTEND]: frontendItems,
 };
 

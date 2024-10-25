@@ -16,13 +16,10 @@ import {
   Database, 
   BookOpen,
   ChevronRight,
-  Router
 } from 'lucide-react';
 import { SidebarProps, SidebarItemProps, SidebarGroupEnum } from '@/utils/type';
 import { sidebarGroup } from '@/utils/bundle-items';
 import Link from 'next/link';
-import { it } from 'node:test';
-import { url } from 'inspector';
 
 const folderSections = [
   {
