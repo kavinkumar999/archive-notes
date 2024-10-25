@@ -1,14 +1,33 @@
+import { url } from "inspector";
+
 export const frontendItems = [
   {
     name: 'Flattern',
-    url: 'flattern',
+    url: '/fe/flattern',
   },
   {
     name: 'Array Methods',
-    url: 'array-methods',
+    url: '/fe/array-methods',
   },
   {
     name: 'Testing Framework',
-    url: 'testing-framework',
-  }
+    url: '/fe/testing-framework',
+  },
+  {
+    name: 'Throttle',
+    url: '/fe/throttle',
+  },
+  {
+    name: 'Debounce',
+    url: '/fe/debounce',
+  },
+  {
+    name: 'Promisify',
+    url: '/fe/promisify',
+  },
+  {
+    name: 'This Binding',
+    url: '/fe/this-binding',
+  },
+  
 ];

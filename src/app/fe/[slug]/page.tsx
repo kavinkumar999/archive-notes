@@ -22,7 +22,7 @@ const components = {
 };
 
 export async function generateStaticParams() {
-  const _dir = "src/app/frontend"
+  const _dir = "src/content/frontend"
   const _path = path.join(process.cwd(), _dir)
 
   console.log(_path)
@@ -37,7 +37,6 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params } : any) {
   const notes = getPost(params);
-
   return{
       title: notes.frontMatter.title,
       description: notes.frontMatter.description,
@@ -45,7 +44,7 @@ export async function generateMetadata({ params } : any) {
 }
 
 function getPost({slug}:{slug : string}){
-  const _dir = "src/app/frontend"
+  const _dir = "src/content/frontend"
   const _path = path.join(process.cwd(), _dir)
 
   const markdownFile = fs.readFileSync(path.join(_path,slug + '.mdx'), 'utf-8')
