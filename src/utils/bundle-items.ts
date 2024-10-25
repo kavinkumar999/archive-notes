@@ -1,6 +1,5 @@
 import { SidebarItemProps, SidebarProps, SidebarGroupEnum } from '@/utils/type';
-import { frontendItems } from '@/utils/frontend';
-import { systemDesignItems } from '@/utils/system';
+import { frontendItems, systemDesignItems } from '@/utils/item-util';
 
 const hash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
   [SidebarGroupEnum.SYSTEM_DESIGN]: systemDesignItems,

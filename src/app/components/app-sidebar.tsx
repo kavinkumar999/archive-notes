@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Sidebar,
@@ -16,6 +17,7 @@ import {
   Database, 
   BookOpen,
   ChevronRight,
+  ChevronDown,
 } from 'lucide-react';
 import { SidebarProps, SidebarItemProps, SidebarGroupEnum } from '@/utils/type';
 import { sidebarGroup } from '@/utils/bundle-items';
@@ -37,8 +39,14 @@ const folderSections = [
 ];
 
 export default function AppSidebar() {
+  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({});
   const pathname = usePathname();
   const router = useRouter();
+
+  const toggleSection = (title: string) => {
+    setOpenSections(prev => ({ ...prev, [title]: !prev[title] }));
+  };
+
   const isActive = (url: string) => pathname === url;
   const sideMenuItems: SidebarProps[] = sidebarGroup(folderSections);
 
@@ -61,42 +69,49 @@ export default function AppSidebar() {
             {
               sideMenuItems.map((menu: SidebarProps, index: number) => (
                 <div className="space-y-4" key={index}>
-                  <div className="px-4 flex items-center gap-2">
+                  <div className="px-4 flex items-center gap-2 cursor-pointer" onClick={() => toggleSection(menu.title)}>
                     {menu.icon}
                     <SidebarGroupLabel className="text-xl font-semibold text-foreground">
                       {menu.title}
                     </SidebarGroupLabel>
+                    {openSections[menu.title] ? (
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                    )}
                   </div>
-                  <SidebarGroupContent className='ml-6'>
-                    <SidebarMenu>
-                      {menu.items.map((item: SidebarItemProps) => (
-                        <SidebarMenuItem 
-                          key={item.name}
-                          className={`rounded-[--radius] transition-all text-nowrap duration-200`}
-                        >
-                          <SidebarMenuButton asChild>
-                            <Link
-                              href={item.url} 
-                              className={`
-                                flex items-center gap-3 px-4 py-3 text-base font-medium
-                                rounded-[--radius] transition-all duration-200
-                                group relative
-                                ${isActive(item.url) 
-                                  ? 'text-primary bg-secondary hover:bg-secondary hover:text-primary' 
-                                  : 'hover:bg-secondary hover:text-primary'
-                                }
-                              `}
-                            >
-                              {item.name}
-                              {isActive(item.url) && (
-                                <ChevronRight className="w-4 h-4 absolute right-2 text-primary" />
-                              )}
-                            </Link>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
+                  {openSections[menu.title] && (
+                    <SidebarGroupContent className='ml-6'>
+                      <SidebarMenu>
+                        {menu.items.map((item: SidebarItemProps) => (
+                          <SidebarMenuItem 
+                            key={item.name}
+                            className={`rounded-[--radius] transition-all text-nowrap duration-200`}
+                          >
+                            <SidebarMenuButton asChild>
+                              <Link
+                                href={item.url} 
+                                className={`
+                                  flex items-center gap-3 px-4 py-3 text-base font-medium
+                                  rounded-[--radius] transition-all duration-200
+                                  group relative
+                                  ${isActive(item.url) 
+                                    ? 'text-primary bg-secondary hover:bg-secondary hover:text-primary' 
+                                    : 'hover:bg-secondary hover:text-primary'
+                                  }
+                                `}
+                              >
+                                {item.name}
+                                {isActive(item.url) && (
+                                  <ChevronRight className="w-4 h-4 absolute right-2 text-primary" />
+                                )}
+                              </Link>
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                        ))}
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  )}
                 </div>
               ))
             }

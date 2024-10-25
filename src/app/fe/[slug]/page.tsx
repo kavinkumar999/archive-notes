@@ -22,15 +22,17 @@ const components = {
 };
 
 export async function generateStaticParams() {
-  const _dir = "src/content/frontend"
-  const _path = path.join(process.cwd(), _dir)
+  const dir = ["src/content/frontend", "src/content/backend", "src/content/system-design"];
+  let paths: { slug: string }[] = [];
+  for (const _dir of dir) {
+    const _path = path.join(process.cwd(), _dir)
+    const files = fs.readdirSync(path.join(_path));
 
-  const files = fs.readdirSync(path.join(_path));
-
-  const paths = files.map(filename => ({
-      slug: filename.replace('.mdx', '')
-  }))
-
+    const _paths = files.map(filename => ({
+        slug: filename.replace('.mdx', '')
+    }))
+    paths = paths.concat(_paths);
+  }
   return paths
 }
 
@@ -43,8 +45,15 @@ export async function generateMetadata({ params } : any) {
 }
 
 function getPost({slug}:{slug : string}){
-  const _dir = "src/content/frontend"
-  const _path = path.join(process.cwd(), _dir)
+  const directories = ["src/content/frontend", "src/content/backend", "src/content/system-design"];
+  let dir = "";
+  for (const _d of directories) {
+      if(fs.existsSync(path.join(process.cwd(), _d, slug + '.mdx'))){
+          dir = _d;
+          break;
+      }
+  }
+  const _path = path.join(process.cwd(), dir)
 
   const markdownFile = fs.readFileSync(path.join(_path,slug + '.mdx'), 'utf-8')
 

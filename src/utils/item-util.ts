@@ -108,3 +108,10 @@ export const frontendItems = [
     "url": "/fe/use-window-size"
   }
 ];
+
+export const systemDesignItems = [
+  {
+    "name": "Client Server",
+    "url": "/fe/client-server"
+  }
+];
