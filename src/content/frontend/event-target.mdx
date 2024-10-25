@@ -56,3 +56,33 @@ world; // From the second 'world' dispatch
 // The second 'hello' dispatch does nothing because
 // the event listener was removed above it
 ```
+
+## Solution
+
+```javascript
+class EventTarget {
+  constructor() {
+    this.listeners = {};
+  }
+
+  addEventListener(name, callback) {
+    if (!this.listeners.hasOwnProperty(name)) {
+      this.listeners[name] = new Set([callback]);
+    } else {
+      this.listeners[name].add(callback);
+    }
+  }
+
+  removeEventListener(name, callback) {
+    this.listeners[name]?.delete(callback);
+  }
+
+  dispatchEvent(name) {
+    this.listeners[name]?.forEach(callback => {
+      callback();
+    });
+  }
+}
+
+exports.EventTarget = EventTarget;
+```

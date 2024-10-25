@@ -24,3 +24,27 @@ curriedSum(1, 2)(3)(4, 5, 6)(); // 21
 curriedSum(1); // [Function]
 curriedSum(1, 2)(3); // [Function]
 ```
+
+## Solution
+
+```javascript
+function curry(callback) {
+  const curriedCallback = (...args) => {
+    if (args.length === 0) {
+      return callback();
+    }
+
+    return (...otherArgs) => {
+      if (otherArgs.length === 0) {
+        return callback(...args);
+      }
+
+      return curriedCallback(...args, ...otherArgs);
+    };
+  };
+
+  return curriedCallback;
+}
+
+exports.curry = curry;
+```
