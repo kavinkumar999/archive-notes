@@ -25,7 +25,6 @@ export async function generateStaticParams() {
   const _dir = "src/content/frontend"
   const _path = path.join(process.cwd(), _dir)
 
-  console.log(_path)
   const files = fs.readdirSync(path.join(_path));
 
   const paths = files.map(filename => ({
