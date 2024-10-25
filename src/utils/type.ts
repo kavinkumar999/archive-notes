@@ -1,9 +1,11 @@
 export interface SidebarItemProps { name: string, url: string };
 
-export interface SidebarProps { title: string, icon: JSX.Element, items: SidebarItemProps[] }[];
+export interface SidebarProps { title: string, icon: JSX.Element, items: SidebarItemProps[] };
 
 export enum SidebarGroupEnum {
-  'SYSTEM_DESIGN' = 'System',
-  'BACKEND' = 'Backend',
-  'FRONTEND' = 'Frontend'
+  'HLD' = 'HLD',
+  'JAVASCRIPT' = 'JavaScript',
+  'REACT' = 'React',
+  'DOM' = 'DOM',
+  'BACKEND' = 'Backend'
 }

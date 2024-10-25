@@ -1,12 +1,13 @@
 import { SidebarItemProps, SidebarProps, SidebarGroupEnum } from '@/utils/type';
-import { frontendItems, systemDesignItems } from '@/utils/item-util';
+import { jsItems, reactItems, domItems, systemDesignItems } from '@/utils/item-util';
 
 const hash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
-  [SidebarGroupEnum.SYSTEM_DESIGN]: systemDesignItems,
+  [SidebarGroupEnum.HLD]: systemDesignItems,
+  [SidebarGroupEnum.JAVASCRIPT]: jsItems,
+  [SidebarGroupEnum.REACT]: reactItems,
+  [SidebarGroupEnum.DOM]: domItems,
   [SidebarGroupEnum.BACKEND]: [],
-  [SidebarGroupEnum.FRONTEND]: frontendItems,
 };
-
 
 function getSideBarItems(folder: SidebarGroupEnum): SidebarItemProps[] {
   const items = hash.hasOwnProperty(folder) ? hash[folder] : [];

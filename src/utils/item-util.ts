@@ -1,117 +1,119 @@
-export const frontendItems = [
+export const jsItems = [
   {
     "name": "Array Methods",
-    "url": "/fe/array-methods"
-  },
-  {
-    "name": "Corresponding Node",
-    "url": "/fe/corresponding-node"
-  },
-  {
-    "name": "Curry",
-    "url": "/fe/curry"
-  },
-  {
-    "name": "Debounce",
-    "url": "/fe/debounce"
-  },
-  {
-    "name": "Deep Equals",
-    "url": "/fe/deep-equals"
-  },
-  {
-    "name": "Event Target",
-    "url": "/fe/event-target"
+    "url": "/note/array-methods"
   },
   {
     "name": "Flatten",
-    "url": "/fe/flatten"
+    "url": "/note/flatten"
   },
   {
-    "name": "Infinite Scroll",
-    "url": "/fe/infinite-scroll"
+    "name": "Curry",
+    "url": "/note/curry"
+  },
+  {
+    "name": "Debounce",
+    "url": "/note/debounce"
+  },
+  {
+    "name": "Deep Equals",
+    "url": "/note/deep-equals"
   },
   {
     "name": "Memoize",
-    "url": "/fe/memoize"
-  },
-  {
-    "name": "Phone Input",
-    "url": "/fe/phone-input"
+    "url": "/note/memoize"
   },
   {
     "name": "Promise Methods",
-    "url": "/fe/promise-methods"
+    "url": "/note/promise-methods"
   },
   {
     "name": "Promises",
-    "url": "/fe/promises"
+    "url": "/note/promises"
   },
   {
     "name": "Promisify",
-    "url": "/fe/promisify"
-  },
-  {
-    "name": "Quiz",
-    "url": "/fe/quiz"
-  },
-  {
-    "name": "Stop Watch",
-    "url": "/fe/stop-watch"
-  },
-  {
-    "name": "Testing Framework",
-    "url": "/fe/testing-framework"
+    "url": "/note/promisify"
   },
   {
     "name": "This Binding",
-    "url": "/fe/this-binding"
+    "url": "/note/this-binding"
   },
   {
     "name": "Throttle",
-    "url": "/fe/throttle"
+    "url": "/note/throttle"
   },
   {
-    "name": "Tic Tac Toe",
-    "url": "/fe/tic-tac-toe"
+    "name": "Event Target",
+    "url": "/note/event-target"
   },
   {
-    "name": "Toasts",
-    "url": "/fe/toasts"
+    "name": "Testing Framework",
+    "url": "/note/testing-framework"
+  },
+];
+
+export const domItems = [
+  {
+    "name": "Infinite Scroll",
+    "url": "/note/infinite-scroll"
   },
   {
-    "name": "Todo List",
-    "url": "/fe/todo-list"
+    "name": "Stop Watch",
+    "url": "/note/stop-watch"
   },
   {
     "name": "Type Ahead",
-    "url": "/fe/type-ahead"
+    "url": "/note/type-ahead"
+  },
+  {
+    "name": "Tic Tac Toe",
+    "url": "/note/tic-tac-toe"
+  },
+  {
+    "name": "Todo List",
+    "url": "/note/todo-list"
+  },
+  {
+    "name": "Phone Input",
+    "url": "/note/phone-input"
+  },
+  {
+    "name": "Toasts",
+    "url": "/note/toasts"
+  }
+];
+
+export const reactItems = [
+  {
+    "name": "Quiz",
+    "url": "/note/quiz"
   },
   {
     "name": "Use Fetch",
-    "url": "/fe/use-fetch"
+    "url": "/note/use-fetch"
   },
   {
     "name": "Use Interval",
-    "url": "/fe/use-interval"
+    "url": "/note/use-interval"
   },
   {
     "name": "Use Map",
-    "url": "/fe/use-map"
+    "url": "/note/use-map"
   },
   {
     "name": "Use State with History",
-    "url": "/fe/use-state-with-history"
+    "url": "/note/use-state-with-history"
   },
   {
     "name": "Use Window Size",
-    "url": "/fe/use-window-size"
+    "url": "/note/use-window-size"
   }
 ];
 
 export const systemDesignItems = [
   {
     "name": "Client Server",
-    "url": "/fe/client-server"
+    "url": "/note/client-server"
   }
 ];

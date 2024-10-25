@@ -25,7 +25,7 @@ import Link from 'next/link';
 
 const folderSections = [
   {
-    title: SidebarGroupEnum.SYSTEM_DESIGN,
+    title: SidebarGroupEnum.HLD,
     icon: <Database className="w-5 h-5 text-muted-foreground" />
   },
   {
@@ -33,7 +33,15 @@ const folderSections = [
     icon: <Code className="w-5 h-5 text-muted-foreground" />
   },
   {
-    title: SidebarGroupEnum.FRONTEND,
+    title: SidebarGroupEnum.JAVASCRIPT,
+    icon: <Layout className="w-5 h-5 text-muted-foreground" />
+  },
+  {
+    title: SidebarGroupEnum.REACT,
+    icon: <Layout className="w-5 h-5 text-muted-foreground" />
+  },
+  {
+    title: SidebarGroupEnum.DOM,
     icon: <Layout className="w-5 h-5 text-muted-foreground" />
   }
 ];
