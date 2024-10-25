@@ -5,6 +5,7 @@ import Footer from '../../components/footer';
 
 function Layout({children}: Readonly<{children: React.ReactNode;}>) {
   useEffect(() => {
+    console.log('highlighting code blocks');
     document.querySelectorAll('pre code').forEach((block) => {
       return hljs.highlightBlock(block as HTMLElement);
     });
