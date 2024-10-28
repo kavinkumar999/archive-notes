@@ -2,24 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
 import '@/app/styles/github-dark.css';
-import { Pluggable } from 'unified';
-import langHttp from 'highlight.js/lib/languages/http';
-import langNginx from 'highlight.js/lib/languages/nginx';
-
-const options = {
-    mdxOptions: {
-        remarkPlugins: [remarkGfm],
-      rehypePlugins: [
-        [rehypeHighlight, { languages: { http: langHttp, nginx: langNginx } }] as Pluggable
-      ],
-    }
-}
-const components = {
-  Greet: ({ name }: any) => <p>Hello, {name}!</p>
-};
 
 export async function generateStaticParams() {
   const dir = ["src/content/frontend", "src/content/backend", "src/content/system-design"];
@@ -36,7 +19,7 @@ export async function generateStaticParams() {
   return paths
 }
 
-export async function generateMetadata({ params } : any) {
+export async function generateMetadata({ params } : { params : { slug : string } }) {
   const notes = getPost(params);
   return{
       title: notes.frontMatter.title,
@@ -66,14 +49,14 @@ function getPost({slug}:{slug : string}){
   }
 }
 
-export default function Post({ params } :any) {
+export default function Post({ params } : { params : { slug : string } }) {
  
   const props = getPost(params);
 
   return (
       <article className={`prose prose-sm md:prose-base lg:prose-lg prose-slate max-w-fit pr-16 dark:!prose-invert`}>
         <h1>{props.frontMatter.title}</h1>
-        <MDXRemote source={props.content} options={options} components={components}/>
+        <MDXRemote source={props.content}/>
       </article>
   )
 }
