@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import '@/app/styles/github-dark.css';
 
 export async function generateStaticParams() {
-  const dir = ["src/content/frontend", "src/content/backend", "src/content/system-design"];
+  const dir = ["src/content/frontend", "src/content/system-design"];
   let paths: { slug: string }[] = [];
   for (const _dir of dir) {
     const _path = path.join(process.cwd(), _dir)
@@ -28,7 +28,7 @@ export async function generateMetadata({ params } : { params : { slug : string }
 }
 
 function getPost({slug}:{slug : string}){
-  const directories = ["src/content/frontend", "src/content/backend", "src/content/system-design"];
+  const directories = ["src/content/frontend", "src/content/system-design"];
   let dir = "";
   for (const _d of directories) {
       if(fs.existsSync(path.join(process.cwd(), _d, slug + '.mdx'))){
