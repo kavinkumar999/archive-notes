@@ -121,5 +121,13 @@ export const databaseItems = [
   {
     name: 'DBMS',
     url: '/note/dbms'
+  },
+  {
+    name: 'Keys in DBMS',
+    url: '/note/keys-dbms'
+  },
+  {
+    name: 'Normal Forms',
+    url: '/note/normal-forms'
   }
 ]

@@ -1,0 +1,201 @@
+---
+title: Keys in DBMS
+tag: database
+---
+
+
+In a database, a **key** is an attribute or a set of attributes that helps identify a record in a table. 
+
+## 1. Primary Key
+
+### Definition:
+A **Primary Key** is a set of one or more attributes that uniquely identifies each record in a table. The values in the primary key columns must be unique and cannot be null.
+
+- **Conditions**:
+  - Each value in the primary key must be unique.
+  - Cannot have `NULL` values.
+  - Each table can have only one primary key.
+
+### Example:
+
+| Student_ID (PK) | Name    | Age |
+|-----------------|---------|-----|
+| 1               | Alice   | 20  |
+| 2               | Bob     | 22  |
+| 3               | Charlie | 21  |
+
+In the above table, `Student_ID` is the **Primary Key**.
+
+---
+
+## 2. Candidate Key
+
+### Definition:
+A **Candidate Key** is a minimal set of attributes that can uniquely identify a record in a table. There can be multiple candidate keys in a table, and each can be used as a primary key.
+
+- **Conditions**:
+  - A candidate key must uniquely identify each row.
+  - It must be minimal (i.e., no subset of the candidate key can uniquely identify the record).
+
+### Example:
+
+| Employee_ID (CK) | Name    | Phone_Number (CK) |
+|------------------|---------|-------------------|
+| 1                | Alice   | 12345             |
+| 2                | Bob     | 67890             |
+| 3                | Charlie | 11223             |
+
+Here, both `Employee_ID` and `Phone_Number` are **Candidate Keys** since either can uniquely identify a record. One of them will be selected as the **Primary Key**.
+
+---
+
+## 3. Alternate Key
+
+### Definition:
+An **Alternate Key** is any candidate key that is not selected as the primary key. It is still capable of uniquely identifying records but is not chosen for use as the primary key.
+
+- **Conditions**:
+  - It is a candidate key, but not the primary key.
+
+### Example:
+
+Continuing from the previous example, if we select `Employee_ID` as the primary key, then `Phone_Number` becomes an **Alternate Key**.
+
+| Employee_ID (PK) | Name    | Phone_Number (AK) |
+|------------------|---------|-------------------|
+| 1                | Alice   | 12345             |
+| 2                | Bob     | 67890             |
+| 3                | Charlie | 11223             |
+
+In this case, `Phone_Number` is an **Alternate Key**.
+
+---
+
+## 4. Foreign Key
+
+### Definition:
+A **Foreign Key** is an attribute or a set of attributes in a table that establishes a link between the data in two tables. It is a reference to the primary key in another table.
+
+- **Conditions**:
+  - The values in the foreign key column must match the primary key values in the referenced table or be null.
+  - A foreign key creates a relationship between two tables.
+
+### Example:
+
+**Student Table:**
+
+| Student_ID (PK) | Name    | Age |
+|-----------------|---------|-----|
+| 1               | Alice   | 20  |
+| 2               | Bob     | 22  |
+
+**Course Table:**
+
+| Course_ID (PK) | Course_Name | Student_ID (FK) |
+|----------------|-------------|-----------------|
+| 101            | Math        | 1               |
+| 102            | Science     | 2               |
+
+Here, `Student_ID` in the **Course Table** is a **Foreign Key** referencing the `Student_ID` in the **Student Table**.
+
+---
+
+## 5. Superkey
+
+### Definition:
+A **Super key** is a set of one or more attributes that can uniquely identify a record in a table. A super key may contain extra attributes that are not necessary to uniquely identify the record.
+
+- **Conditions**:
+  - A superkey can have additional attributes beyond those required for uniqueness.
+  - Every **Primary Key** is a superkey, but not every superkey is a primary key.
+
+### Example:
+
+| Student_ID (SK) | Name    | Age |
+|-----------------|---------|-----|
+| 1               | Alice   | 20  |
+| 2               | Bob     | 22  |
+
+Here, the combination of `Student_ID` and `Age` is a **Superkey** because `Student_ID` alone is enough to uniquely identify each record, but adding `Age` does not change the fact that the superkey still uniquely identifies records.
+
+---
+
+## 6. Composite Key
+
+### Definition:
+A **Composite Key** is a primary key that consists of more than one attribute. It is used when no single attribute can uniquely identify a record.
+
+- **Conditions**:
+  - It must contain more than one attribute.
+  - The combination of the attributes must uniquely identify each record.
+
+### Example:
+
+| Student_ID (PK) | Course_ID (PK) | Course_Name  |
+|-----------------|----------------|--------------|
+| 1               | 101            | Math         |
+| 1               | 102            | Science      |
+| 2               | 101            | Math         |
+
+Here, the combination of `Student_ID` and `Course_ID` forms a **Composite Key** to uniquely identify each record.
+
+---
+
+## 7. Unique Key
+
+### Definition:
+A **Unique Key** is a set of one or more attributes that uniquely identify a record, similar to a primary key. However, unlike the primary key, it can accept `NULL` values.
+
+- **Conditions**:
+  - Unique keys ensure uniqueness of data but can allow `NULL` values.
+  - A table can have multiple unique keys.
+
+### Example:
+
+| Employee_ID (PK) | Email (UK)        | Name    |
+|------------------|-------------------|---------|
+| 1                | alice@email.com    | Alice   |
+| 2                | bob@email.com      | Bob     |
+| 3                | charlie@email.com  | Charlie |
+
+Here, `Email` is a **Unique Key** since it must be unique, but can also accept `NULL` values if necessary.
+
+---
+
+## 8. Candidate Key vs Superkey
+
+- **Candidate Key**: A minimal key that uniquely identifies records in a table. No redundant attributes are included.
+- **Supe rkey**: A set of one or more attributes that can uniquely identify records, but it may contain redundant attributes.
+
+**Key Difference**:
+- A **Superkey** can contain additional attributes beyond those required for uniqueness, while a **Candidate Key** is minimal.
+- Every **Candidate Key** is a **Superkey**, but not every **Superkey** is a **Candidate Key**.
+
+### Example:
+Consider a table where `Student_ID`, `Phone_Number`, and their combinations form superkeys.
+
+| Student_ID (CK) | Phone_Number (CK) | Name    |
+|-----------------|-------------------|---------|
+| 1               | 12345             | Alice   |
+| 2               | 67890             | Bob     |
+| 3               | 11223             | Charlie |
+
+Here, both `Student_ID` and `Phone_Number` are **Candidate Keys**, and `{Student_ID, Phone_Number}` is a **Superkey** (but not minimal).
+
+---
+
+## TLDR:
+
+| Key Type        | Description                                      |
+|-----------------|--------------------------------------------------|
+| **Primary Key** | Uniquely identifies each record, cannot be NULL |
+| **Candidate Key** | Minimal set of attributes that uniquely identify records |
+| **Alternate Key** | A candidate key not chosen as the primary key |
+| **Foreign Key** | Refers to the primary key in another table, creates relationships |
+| **Superkey**    | A set of attributes that can uniquely identify a record, may contain redundant attributes |
+| **Composite Key** | Primary key made up of more than one attribute |
+| **Unique Key**  | Ensures uniqueness, can accept NULL values |
+| **Candidate Key vs Superkey** | Candidate Key is minimal, Superkey may contain extra attributes |
+
+
+

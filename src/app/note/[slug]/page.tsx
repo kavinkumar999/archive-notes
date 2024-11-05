@@ -2,29 +2,40 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import '@/app/styles/github-dark.css';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
-export async function generateStaticParams() {
-  const dir = ['src/content/frontend', 'src/content/system-design', 'src/content/database', 'src/content/backend'];
-  let paths: { slug: string }[] = [];
-  for (const _dir of dir) {
-    const _path = path.join(process.cwd(), _dir)
-    const files = fs.readdirSync(path.join(_path));
-
-    const _paths = files.map(filename => ({
-        slug: filename.replace('.mdx', '')
-    }))
-    paths = paths.concat(_paths);
+const options = {
+  mdxOptions: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeRaw],
   }
-  return paths
 }
 
-export async function generateMetadata({ params } : { params : { slug : string } }) {
-  const notes = getPost(params);
-  return{
-      title: notes.frontMatter.title,
-      description: notes.frontMatter.description,
+export async function generateStaticParams() {
+  const dirs = ['frontend', 'system-design', 'database', 'backend'];
+  let paths: { slug: string }[] = [];
+
+  for (const dir of dirs) {
+    const dirPath = path.join(process.cwd(), 'src', 'content', dir);
+    const files = fs.readdirSync(dirPath);
+
+    paths = paths.concat(
+      files.map((filename) => ({
+        slug: filename.replace('.mdx', ''),
+      }))
+    );
   }
+
+  return paths;
+}
+
+export async function generateMetadata({ params } : { params : { slug : string }}) {
+  const { frontMatter } = getPost(params);
+  return {
+    title: frontMatter.title,
+    description: frontMatter.description,
+  };
 }
 
 function getPost({slug}:{slug : string}){
@@ -36,27 +47,26 @@ function getPost({slug}:{slug : string}){
           break;
       }
   }
-  const _path = path.join(process.cwd(), dir)
+  const _path = path.join(process.cwd(), dir);
 
-  const markdownFile = fs.readFileSync(path.join(_path,slug + '.mdx'), 'utf-8')
+  const markdownFile = fs.readFileSync(path.join(_path,slug + '.mdx'), 'utf-8');
 
-  const { data: frontMatter, content } = matter(markdownFile)
+  const { data: frontMatter, content } = matter(markdownFile);
 
   return {
-      frontMatter,
-      slug,
-      content
-  }
+    frontMatter,
+    slug,
+    content
+  };
 }
 
-export default function Post({ params } : { params : { slug : string } }) {
- 
-  const props = getPost(params);
+export default function Post({ params }: { params : { slug : string } }) {
+  const { frontMatter, content } = getPost(params);
 
   return (
-      <article className={`prose prose-sm md:prose-base lg:prose-lg prose-slate max-w-fit pr-16 dark:!prose-invert`}>
-        <h1>{props.frontMatter.title}</h1>
-        <MDXRemote source={props.content}/>
-      </article>
-  )
+    <article className={`prose prose-sm md:prose-base lg:prose-lg prose-slate max-w-fit pr-16 dark:!prose-invert`}>
+      <h1>{frontMatter.title}</h1>
+      <MDXRemote source={content} options={options} />
+    </article>
+  );
 }
