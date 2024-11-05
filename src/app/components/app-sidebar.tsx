@@ -41,6 +41,10 @@ const folderSections = [
     icon: <Layout className="w-5 h-5 text-muted-foreground" />
   },
   {
+   title: SidebarGroupEnum.DATABASE,
+   icon: <Database className="w-5 h-5 text-muted-foreground" />
+  },
+  {
     title: SidebarGroupEnum.DOM,
     icon: <Layout className="w-5 h-5 text-muted-foreground" />
   }

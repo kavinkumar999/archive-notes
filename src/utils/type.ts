@@ -7,5 +7,6 @@ export enum SidebarGroupEnum {
   'JAVASCRIPT' = 'JavaScript',
   'REACT' = 'React',
   'DOM' = 'DOM',
-  'BACKEND' = 'Backend'
+  'BACKEND' = 'Backend',
+  'DATABASE' = 'Database'
 }

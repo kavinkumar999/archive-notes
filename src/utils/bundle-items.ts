@@ -1,11 +1,12 @@
 import { SidebarItemProps, SidebarProps, SidebarGroupEnum } from '@/utils/type';
-import { jsItems, reactItems, domItems, systemDesignItems } from '@/utils/item-util';
+import { jsItems, reactItems, domItems, systemDesignItems, databaseItems } from '@/utils/item-util';
 
 const hash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
   [SidebarGroupEnum.HLD]: systemDesignItems,
   [SidebarGroupEnum.JAVASCRIPT]: jsItems,
   [SidebarGroupEnum.REACT]: reactItems,
   [SidebarGroupEnum.DOM]: domItems,
+  [SidebarGroupEnum.DATABASE]: databaseItems,
   [SidebarGroupEnum.BACKEND]: [],
 };
 

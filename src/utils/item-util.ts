@@ -1,119 +1,125 @@
 export const jsItems = [
   {
-    "name": "Array Methods",
-    "url": "/note/array-methods"
+    name: 'Array Methods',
+    url: '/note/array-methods'
   },
   {
-    "name": "Flatten",
-    "url": "/note/flatten"
+    name: 'Flatten',
+    url: '/note/flatten'
   },
   {
-    "name": "Curry",
-    "url": "/note/curry"
+    name: 'Curry',
+    url: '/note/curry'
   },
   {
-    "name": "Debounce",
-    "url": "/note/debounce"
+    name: 'Debounce',
+    url: '/note/debounce'
   },
   {
-    "name": "Deep Equals",
-    "url": "/note/deep-equals"
+    name: 'Deep Equals',
+    url: '/note/deep-equals'
   },
   {
-    "name": "Memoize",
-    "url": "/note/memoize"
+    name: 'Memoize',
+    url: '/note/memoize'
   },
   {
-    "name": "Promise Methods",
-    "url": "/note/promise-methods"
+    name: 'Promise Methods',
+    url: '/note/promise-methods'
   },
   {
-    "name": "Promises",
-    "url": "/note/promises"
+    name: 'Promises',
+    url: '/note/promises'
   },
   {
-    "name": "Promisify",
-    "url": "/note/promisify"
+    name: 'Promisify',
+    url: '/note/promisify'
   },
   {
-    "name": "This Binding",
-    "url": "/note/this-binding"
+    name: 'This Binding',
+    url: '/note/this-binding'
   },
   {
-    "name": "Throttle",
-    "url": "/note/throttle"
+    name: 'Throttle',
+    url: '/note/throttle'
   },
   {
-    "name": "Event Target",
-    "url": "/note/event-target"
+    name: 'Event Target',
+    url: '/note/event-target'
   },
   {
-    "name": "Testing Framework",
-    "url": "/note/testing-framework"
+    name: 'Testing Framework',
+    url: '/note/testing-framework'
   },
 ];
 
 export const domItems = [
   {
-    "name": "Infinite Scroll",
-    "url": "/note/infinite-scroll"
+    name: 'Infinite Scroll',
+    url: '/note/infinite-scroll'
   },
   {
-    "name": "Stop Watch",
-    "url": "/note/stop-watch"
+    name: 'Stop Watch',
+    url: '/note/stop-watch'
   },
   {
-    "name": "Type Ahead",
-    "url": "/note/type-ahead"
+    name: 'Type Ahead',
+    url: '/note/type-ahead'
   },
   {
-    "name": "Tic Tac Toe",
-    "url": "/note/tic-tac-toe"
+    name: 'Tic Tac Toe',
+    url: '/note/tic-tac-toe'
   },
   {
-    "name": "Todo List",
-    "url": "/note/todo-list"
+    name: 'Todo List',
+    url: '/note/todo-list'
   },
   {
-    "name": "Phone Input",
-    "url": "/note/phone-input"
+    name: 'Phone Input',
+    url: '/note/phone-input'
   },
   {
-    "name": "Toasts",
-    "url": "/note/toasts"
+    name: 'Toasts',
+    url: '/note/toasts'
   }
 ];
 
 export const reactItems = [
   {
-    "name": "Quiz",
-    "url": "/note/quiz"
+    name: 'Quiz',
+    url: '/note/quiz'
   },
   {
-    "name": "Use Fetch",
-    "url": "/note/use-fetch"
+    name: 'Use Fetch',
+    url: '/note/use-fetch'
   },
   {
-    "name": "Use Interval",
-    "url": "/note/use-interval"
+    name: 'Use Interval',
+    url: '/note/use-interval'
   },
   {
-    "name": "Use Map",
-    "url": "/note/use-map"
+    name: 'Use Map',
+    url: '/note/use-map'
   },
   {
-    "name": "Use State with History",
-    "url": "/note/use-state-with-history"
+    name: 'Use State with History',
+    url: '/note/use-state-with-history'
   },
   {
-    "name": "Use Window Size",
-    "url": "/note/use-window-size"
+    name: 'Use Window Size',
+    url: '/note/use-window-size'
   }
 ];
 
 export const systemDesignItems = [
   {
-    "name": "Client Server",
-    "url": "/note/client-server"
+    name: 'Client Server',
+    url: '/note/client-server'
   }
 ];
+export const databaseItems = [
+  {
+    name: 'DBMS',
+    url: '/note/dbms'
+  }
+]

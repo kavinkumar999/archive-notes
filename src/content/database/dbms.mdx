@@ -1,0 +1,92 @@
+---
+title: DBMS
+tag: database
+---
+
+## Overview
+A **DBMS** is a software system that allows users to create, manage, and manipulate databases. It provides an interface to store, retrieve, update, and delete data efficiently while ensuring data consistency, security, and integrity.
+
+![key functions](/png/database/fdbms.png)
+
+#### Types of DBMS:
+1. **Hierarchical DBMS**: Organizes data in a tree-like structure.
+2. **Network DBMS**: Uses a graph structure to represent relationships.
+3. **Relational DBMS (RDBMS)**: Data is stored in tables, and relationships are maintained using keys.
+4. **Object-oriented DBMS**: Data is stored as objects, similar to object-oriented programming.
+## Entity-Relationship (ER) Model
+
+![image](/png/database/er.png)
+
+
+The **ER Model** is a high-level conceptual data model used to describe the structure of a database
+
+### Components of ER Model
+
+![image](/png/database/er-model.png)
+
+
+> Entity -  Tables
+> Attributes - columns
+
+
+### Attributes types
+####  simple attribute
+![image](/png/database/attribute.png)
+
+#### Primary key attribute
+![image](/png/database/pk-attribute.png)
+
+#### Derived Attribute for any Entity
+
+![image](/png/database/derived-att.png)
+
+
+#### Multivalued Attribute for any Entity
+![image](/png/database/multi-attr.png)
+
+#### Composite Attribute for any Entity
+![image](/png/database/compose-attr.png)
+
+
+### Relationships
+
+1. **One-to-One Relationship**: Each row in Table A is linked to one, and only one, row in Table B, and vice versa. This is less common but might be used for sensitive data separation.
+   
+   **Example**: A `User` table and a `UserProfile` table where each user has one profile and each profile is associated with one user.
+
+2. **One-to-Many (or Many-to-One) Relationship**: A row in Table A can have multiple corresponding rows in Table B, but a row in Table B is linked to only one row in Table A.
+   
+   **Example**: A `Customer` table (Table A) and an `Orders` table (Table B). One customer can place many orders, but each order is placed by one customer.
+
+3. **Many-to-Many Relationship**: Rows in Table A can relate to multiple rows in Table B, and vice versa. This usually requires a junction table.
+   
+   **Example**: A `Students` table and a `Courses` table. A student can enroll in many courses, and a course can include many students. The relationship is managed through a junction table, often called `StudentCourses`, that contains foreign keys referencing the primary keys of the `Students` and `Courses` tables.
+
+## Data Integrity(RDBMS)
+Data integrity in relational databases ensures that the data stored is accurate, reliable, and consistent. Here are the main types explained using database-specific terminology:
+### Types of Integrity in RDBMS
+#### Entity Integrity
+- **Explanation**: Entity integrity is enforced by using a `PRIMARY KEY` constraint in a table. This ensures that each row in the table has a unique identity and that the primary key column(s) never have `NULL` values. It's similar to ensuring that every student in a school has a unique student ID, making them easily identifiable.
+#### Referential Integrity
+- **Explanation**: Referential integrity is maintained through `FOREIGN KEY` constraints that establish a link between two tables. This ensures that a `FOREIGN KEY` value in one table corresponds to a `PRIMARY KEY` value in another table. For example, in a database with "Students" and "Classes" tables, referential integrity ensures that a class listed for a student actually exists in the "Classes" table.
+#### Domain Integrity
+- **Explanation**: Domain integrity ensures that each column in a table adheres to the correct data type, range, and format. This can be enforced using `DATA TYPE` specifications, `CHECK` constraints (to validate data against specific conditions), `NOT NULL` constraints (to prevent null values), and `DEFAULT` values. For instance, an "Email" column in a "Students" table would be set to accept only valid email formats.
+#### User-Defined Integrity
+- **Explanation**: This refers to rules defined by the database administrator that ensure data integrity based on specific business requirements and logic. These rules can encompass a wide range of constraints not covered by the other integrity types. For example, a user-defined rule might ensure that students enrolling in a particular course have met prerequisite course requirements.
+## Database transaction
+- A **database transaction** is a logical unit of work that comprises one or more operations performed on a database.
+- These operations are grouped together to ensure that the database remains in a consistent state, even in the face of failures or errors.
+
+![image](/png/database/db-transaction.png)
+
+During its lifecycle, a database transaction goes through multiple states. These states are called transaction states and are typically one of the following:
+
+- **Active states:** It is the first state during the execution of a transaction. A transaction is active as long as its instructions (read or write operations) are performed.
+
+- **Partially committed:** A change has been executed in this state, but the database has not yet committed the change on disk. In this state, data is stored in the memory buffer, and the buffer is not yet written to disk.
+
+- **Committed:** In this state, all the transaction updates are permanently stored in the database. Therefore, it is not possible to rollback the transaction after this point.
+
+- **Failed:** If a transaction fails or has been aborted in the active state or partially committed state, it enters into a failed state.
+
+- **Terminated state:** This is the last and final transaction state after a committed or aborted state. This marks the end of the database transaction life cycle.d
