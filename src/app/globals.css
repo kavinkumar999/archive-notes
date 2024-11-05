@@ -108,3 +108,36 @@ h4 {
     @apply bg-background text-foreground;
   }
 }
+
+.prose {
+
+ table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  
+ table th,
+ table td {
+    padding: 0.75rem 1.5rem;
+  }
+  
+  table thead th {
+    border: 1px solid var(--tw-prose-th-borders);
+    font-size: 0.75rem;
+    font-weight: 700;
+    background-color: grey;
+    text-transform: uppercase;
+  }
+  
+  table tbody tr td {
+    border: 1px solid var(--tw-prose-td-borders);
+  }
+
+}
+
+.light .prose {
+  table thead th {
+    background-color: #ccc;
+  }
+}
