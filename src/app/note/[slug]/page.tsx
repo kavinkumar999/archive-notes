@@ -18,13 +18,15 @@ export async function generateStaticParams() {
 
   for (const dir of dirs) {
     const dirPath = path.join(process.cwd(), 'src', 'content', dir);
-    const files = fs.readdirSync(dirPath);
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath);
 
-    paths = paths.concat(
-      files.map((filename) => ({
-        slug: filename.replace('.mdx', ''),
-      }))
-    );
+      paths = paths.concat(
+        files.map((filename) => ({
+          slug: filename.replace('.mdx', ''),
+        }))
+      );
+    }
   }
 
   return paths;
