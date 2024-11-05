@@ -3,12 +3,10 @@ import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 
 const options = {
   mdxOptions: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeRaw],
+    remarkPlugins: [remarkGfm]
   }
 }
 
