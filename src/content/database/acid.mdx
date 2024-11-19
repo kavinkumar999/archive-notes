@@ -1,0 +1,80 @@
+---
+title: ACID
+tag: database
+---
+
+## Atomicity
+**Atomicity** in the context of a database transaction refers to the property that ensures that either all the operations of a transaction are completed successfully, or none of them are. It's like an all-or-nothing principle. Here's a simple breakdown of atomicity:
+
+1. **All or Nothing:**
+   - Atomicity guarantees that if any part of a transaction fails, the entire transaction is rolled back, and no changes are applied to the database.
+
+2. **Example: Money Transfer**
+   - Imagine you're transferring money from one bank account to another. The transaction involves two operations: deducting money from one account and adding it to another.
+
+  ```sql
+   BEGIN TRANSACTION;
+
+   UPDATE sender_account SET balance = balance - transfer_amount WHERE account_id = sender_id;
+   UPDATE receiver_account SET balance = balance + transfer_amount WHERE account_id = receiver_id;
+
+   COMMIT;
+  ```
+
+## Consistency
+
+- **Consistency** in the context of a database transaction refers to the property that ensures a transaction brings the database **from one consistent state to another**. 
+- It enforces integrity constraints and rules defined in the database schema. Here's a simple breakdown of consistency:
+
+1. **Enforcement of Rules:**
+   - Consistency ensures that a transaction transforms the database from a valid state to another valid state, adhering to predefined integrity constraints.
+
+2. **Example: Transfer Constraints**
+   - Consider a banking application where money transfers must satisfy constraints like ensuring the sender has sufficient funds.
+
+    ```sql
+    BEGIN TRANSACTION;
+
+    IF sender_balance >= transfer_amount THEN
+        UPDATE sender_account SET balance = balance - transfer_amount WHERE account_id = sender_id;
+        UPDATE receiver_account SET balance = balance + transfer_amount WHERE account_id = receiver_id;
+        COMMIT;
+    ELSE
+        ROLLBACK;
+    END IF;
+    ```
+## Durability
+
+**Durability** in the context of a database transaction refers to the property that ensures once a transaction is committed, its effects are permanent and survive any subsequent failures, such as system crashes
+
+## Isolation
+
+ - When Multiple Transaction are executed parallelly, **Isolation** determines who much the changes of one transaction is visible to other transaction.
+
+![example](/png/database/isolation-example.png)
+
+  - Isolation levels dictate how much a transaction's changes are visible to other transactions running concurrently
+
+
+### Isolation Levels
+
+#### Repeatable Read
+- **Consistent reads** withing the same transaction
+- if the other transaction committed, the changes are not visible to the current transaction(it repeatedly read the same data)
+- So Maintain the same snapshot through the transaction
+
+#### Read Committed
+- **Read the latest committed data**
+- Reads within the same transaction always reads the fresh value
+- So Multiple reads within the same transaction may return different values(**inconsistent reads**)
+
+#### Read Uncommitted
+- **Read the uncommitted data**
+- Reads within the same transaction may read the uncommitted data (**dirty reads**)
+- So Multiple reads within the same transaction may return different values(**inconsistent reads**)
+
+#### Serializable (**Highest Isolation Level**)
+- **Read the data as if the transaction is executed serially**
+- Every read is Locking ready
+- So, if the on transaction is reading the data, other transactions have to **wait until the first transaction is completed**
+

@@ -129,5 +129,9 @@ export const databaseItems = [
   {
     name: 'Normal Forms',
     url: '/note/normal-forms'
+  },
+  {
+    name: 'ACID',
+    url: '/note/acid'
   }
 ]
