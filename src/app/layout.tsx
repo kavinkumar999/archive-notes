@@ -19,7 +19,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Expert Notes",
+  title: "Archive Notes",
   description: "A collection of notes on software engineering",
 };
 

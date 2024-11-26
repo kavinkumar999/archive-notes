@@ -71,7 +71,7 @@ export default function AppSidebar() {
             <div className="flex items-center gap-2 mb-4">
               <BookOpen className="w-6 h-6 text-primary" />
               <SidebarGroupLabel className="text-2xl font-bold text-primary cursor-pointer" onClick={() => router.push('/')}>
-                Expert Notes
+                Archive Notes
               </SidebarGroupLabel>
             </div>
             {/* Separator */}
