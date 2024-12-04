@@ -1,7 +1,7 @@
 import { SidebarItemProps, SidebarProps, SidebarGroupEnum } from '@/utils/type';
 import { jsItems, reactItems, domItems, systemDesignItems, databaseItems } from '@/utils/item-util';
 
-const hash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
+export const notesHash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
   [SidebarGroupEnum.HLD]: systemDesignItems,
   [SidebarGroupEnum.JAVASCRIPT]: jsItems,
   [SidebarGroupEnum.REACT]: reactItems,
@@ -11,7 +11,7 @@ const hash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
 };
 
 function getSideBarItems(folder: SidebarGroupEnum): SidebarItemProps[] {
-  const items = hash.hasOwnProperty(folder) ? hash[folder] : [];
+  const items = notesHash.hasOwnProperty(folder) ? notesHash[folder] : [];
   return items;
 }
 
@@ -25,3 +25,12 @@ export function sidebarGroup(folderSections: {title: string, icon: JSX.Element}[
   });
   return sidebarItems;
 }
+
+export const allNotesList: { name: string, url: string }[] = (() => {
+  return Object.values(notesHash).reduce((notesNameList, notes) => {
+    for (const value of notes) {
+      notesNameList = notesNameList.concat(value as { name: string, url: string });
+    }
+    return notesNameList;
+  }, [] as { name: string, url: string }[]);
+})();

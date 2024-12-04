@@ -24,18 +24,7 @@ h4 {
   font-family: var(--incognito), "Inter", sans-serif;
   color: var(--primary);
 }
-h2 {
-  color: coral !important;
-}
-h3 {
-  color: deepskyblue !important;
-}
-h4 {
-  color: orchid !important;
-}
-.sidebar-bg {
- /* background-color: #323232; */
-}
+
 
 .path {
   stroke-dasharray: 500px 100px;
@@ -119,6 +108,15 @@ h4 {
 }
 
 .prose {
+  h2 {
+    color: coral !important;
+  }
+  h3 {
+    color: deepskyblue !important;
+  }
+  h4 {
+    color: orchid !important;
+  }
 
  table {
     width: 100%;
