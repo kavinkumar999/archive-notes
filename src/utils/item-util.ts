@@ -113,8 +113,8 @@ export const reactItems = [
 
 export const systemDesignItems = [
   {
-    name: 'Client Server',
-    url: '/note/client-server'
+    name: 'System Design Prerequisites',
+    url: '/note/system-design-prerequisites'
   }
 ];
 export const databaseItems = [

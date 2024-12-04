@@ -1,0 +1,121 @@
+# System Design Prerequisites
+System design is the process of defining the architecture, interfaces, and data for a system that satisfies specific requirements.
+
+> System design requires a systematic approach to building and engineering systems
+
+## Availability
+
+Availability refers to the odds of a particular server or service being up and running at any point in time, usually measured in percentages
+
+### High Availability (HA)
+Used to describe systems that have particularly high levels of availability, typically 5 nines or more; sometimes abbreviated as "HA."
+
+### Uptime Percentages
+Availability typically refers to percentages of uptime. For example, 5 nines of availability means an uptime of 99.999% of the time. Below are the downtimes expected per year depending on those 9s:
+
+- 99% (two 9s): 87.7 hours
+- 99.9% (three 9s): 8.8 hours
+- 99.99%: 52.6 minutes
+- 99.999%: 5.3 minutes
+
+
+## Client-Server Model
+
+<img src="/png/system-design/client-server.png" />
+
+### Client
+A **client** is a machine or process that requests data or services from a server.
+
+### Server
+A **server** is a machine or process that provides data or services for a client, usually by listening for incoming network calls.
+
+
+## Internet Protocol (IP) Addresses
+An address given to each machine connected to the public internet.
+
+### IPv4 Addresses
+IPv4 addresses consist of four numbers separated by dots: `a.b.c.d` where all four numbers are between 0 and 255.
+
+
+#### Special IPv4 Values
+- `127.0.0.1`: Your own local machine, also known as **localhost**.
+- `192.168.x.y`: Your private network, such as your machine and all machines on your private Wi-Fi network, usually having the `192.168` prefix.
+
+## Port
+In order for multiple programs to listen for new network connections on the same machine without colliding, they use a **port**, which is an integer between 0 and 65,535 (2<sup>16</sup>).
+
+### Port Types
+- Ports 0-1023 are reserved for **system ports** (also known as **well-known ports**) and are not typically used by user-level processes.
+
+#### Common Port Uses
+- 22: Secure Shell (SSH)
+- 53: DNS lookup
+- 80: HTTP
+- 443: HTTPS
+
+## Domain Name System (DNS)
+DNS is a system that translates human-readable domain names into numerical IP addresses.
+
+
+## Network Protocols
+**IP**
+  - Stands for **Internet Protocol**. This network protocol outlines how almost all machine-to-machine communications should happen in the world. Other protocols like **TCP**, **UDP**, and **HTTP** are built on top of IP.
+
+**TCP**
+  - Network protocol built on top of the Internet Protocol (IP). Allows for ordered, reliable data delivery between machines over the public internet by creating a **connection**.
+  - TCP is usually implemented in the kernel, which exposes **sockets** to applications that they can use to stream data through an open connection.
+
+**HTTP**
+  - The **H**yper**T**ext **T**ransfer **P**rotocol is a very common network protocol implemented on top of TCP. Clients make HTTP requests, and servers respond with a response.
+
+
+## Proxy
+
+<img src="/png/system-design/proxy.png" />
+
+### Forward Proxy
+
+- **Description**: A server that sits between a client and servers, acting on behalf of the client. Often used to mask the client's identity (IP address). Commonly referred to as just proxies.
+
+- **Uses Case**: Useful for content filtering, enforcing company policies, and protecting internal networks from external threats.
+
+- **Example**: VPNs, Tor, and web proxies.
+
+### Reverse Proxy
+
+- **Description**: A server that sits between clients and servers, acting on behalf of the servers. Typically used for logging, load balancing, or caching.
+
+- **Uses Case**: Ideal for load balancing, caching content for faster access, and concealing the characteristics and location of the backend servers for enhanced security.
+
+- **Example**: Nginx, HAProxy, and AWS Elastic Load Balancer.
+
+## Load Balancer
+  A type of **reverse proxy** that distributes traffic across servers. Load balancers can be used to distribute traffic across multiple servers to ensure that no single server is overwhelmed.
+
+### Load Balancer Selection Statergies
+- **Round Robin**: Distributes traffic evenly across servers.
+- **Least Connections**: Sends traffic to the server with the fewest active connections.
+- **IP Hash**: Distributes traffic based on the IP address of the client.
+
+## Latency and Throughput
+- **Latency** is the time delay between initiating a task and its completion.
+- **Throughput** is the number of tasks completed per unit of time.
+
+> Good System == Low latency and High Throughput
+
+## Caching
+Caching is the process of storing data in a temporary storage area to reduce the time it takes to access that data.
+
+### Cache Hit
+When a request is made for data that is already stored in the cache.
+
+### Cache Miss
+When a request is made for data that is not stored in the cache.
+
+### Cache Eviction
+When the cache is full and a new piece of data needs to be stored, the cache must decide which piece of data to remove to make room for the new data.
+- **Least Recently Used (LRU)**: Removes the least recently used data.
+- **Least Frequently Used (LFU)**: Removes the least frequently used data.
+
+### CDN
+A CDN is a third-party service that acts like a cache for your servers. It stores copies of your data in multiple locations around the world to reduce latency and improve performance.
