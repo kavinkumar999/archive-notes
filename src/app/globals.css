@@ -24,6 +24,15 @@ h4 {
   font-family: var(--incognito), "Inter", sans-serif;
   color: var(--primary);
 }
+h2 {
+  color: coral !important;
+}
+h3 {
+  color: deepskyblue !important;
+}
+h4 {
+  color: orchid !important;
+}
 .sidebar-bg {
  /* background-color: #323232; */
 }
