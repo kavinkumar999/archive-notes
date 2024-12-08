@@ -1,4 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+const config = {
+  basePath: '/archive-notes',
+  images: {
+    domains: ['kavinkumar999.github.io'],
+  },
+};
 
-export default nextConfig;
+export default config;
