@@ -4,6 +4,7 @@ export interface SidebarProps { title: string, icon: JSX.Element, items: Sidebar
 
 export enum SidebarGroupEnum {
   'HLD' = 'HLD',
+  'TEMPLATES' = 'Templates',
   'JAVASCRIPT' = 'JavaScript',
   'REACT' = 'React',
   'DOM' = 'DOM',

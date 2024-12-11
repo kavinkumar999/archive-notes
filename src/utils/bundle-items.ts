@@ -1,8 +1,9 @@
 import { SidebarItemProps, SidebarProps, SidebarGroupEnum } from '@/utils/type';
-import { jsItems, reactItems, domItems, systemDesignItems, databaseItems, lldItems } from '@/utils/item-util';
+import { jsItems, reactItems, domItems, systemDesignItems, databaseItems, lldItems, templateItems } from '@/utils/item-util';
 
 export const notesHash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
   [SidebarGroupEnum.HLD]: systemDesignItems,
+  [SidebarGroupEnum.TEMPLATES]: templateItems,
   [SidebarGroupEnum.JAVASCRIPT]: jsItems,
   [SidebarGroupEnum.REACT]: reactItems,
   [SidebarGroupEnum.DOM]: domItems,

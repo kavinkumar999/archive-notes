@@ -145,3 +145,10 @@ export const lldItems = [
     url: '/note/design-principles'
   }
 ];
+
+export const templateItems = [
+  {
+    name: 'Sorting Techniques',
+    url: '/note/sorting'
+  }
+];

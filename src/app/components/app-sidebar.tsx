@@ -18,12 +18,17 @@ import {
   BookOpen,
   ChevronRight,
   ChevronDown,
+  LayoutTemplate
 } from 'lucide-react';
 import { SidebarProps, SidebarItemProps, SidebarGroupEnum } from '@/utils/type';
 import { sidebarGroup } from '@/utils/bundle-items';
 import Link from 'next/link';
 
 const folderSections = [
+  {
+    title: SidebarGroupEnum.TEMPLATES,
+    icon: <LayoutTemplate className="w-5 h-5 text-muted-foreground" />
+  },
   {
     title: SidebarGroupEnum.HLD,
     icon: <Database className="w-5 h-5 text-muted-foreground" />

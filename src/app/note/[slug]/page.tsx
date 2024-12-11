@@ -3,7 +3,8 @@ import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
-
+const dirs = ['frontend', 'system-design', 'database', 'lld', 'templates'];
+const directories = dirs.map(dir => 'src/content/' + dir);
 const options = {
   mdxOptions: {
     remarkPlugins: [remarkGfm]
@@ -11,7 +12,6 @@ const options = {
 }
 
 export async function generateStaticParams() {
-  const dirs = ['frontend', 'system-design', 'database', 'lld'];
   let paths: { slug: string }[] = [];
 
   for (const dir of dirs) {
@@ -39,7 +39,6 @@ export async function generateMetadata({ params } : { params : { slug : string }
 }
 
 function getPost({slug}:{slug : string}){
-  const directories = ['src/content/frontend', 'src/content/system-design', 'src/content/database', 'src/content/lld'];
   let dir = '';
   for (const _d of directories) {
       if(fs.existsSync(path.join(process.cwd(), _d, slug + '.mdx'))){
