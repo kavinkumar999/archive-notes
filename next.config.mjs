@@ -1,5 +1,5 @@
 const config = {
-  basePath: '/archive-notes',
+  basePath: process.env.NODE_ENV === 'production' ? '/archive-notes' : '',
   images: {
     domains: ['kavinkumar999.github.io'],
   },

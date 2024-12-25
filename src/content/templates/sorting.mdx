@@ -2,3 +2,162 @@
 title: Sorting Techniques
 tags: dsa
 ---
+
+## Bubble Sort
+
+```java
+public int[] bubbleSort(int[] nums) {
+    for (int i = 0; i < nums.length; i++) {
+        for (int j = 0; j < nums.length - 1; j++) {
+            if (nums[j] > nums[j + 1]) { 
+                int temp = nums[j];
+                nums[j] = nums[j + 1];
+                nums[j + 1] = temp;
+            }
+        }
+    }
+    return nums;
+}
+```
+
+## Selection Sort
+
+```java
+public int[] selectionSort(int[] nums) {
+    for (int i = 0; i < nums.length; i++) {
+        int pivot = i;
+        for (int j = i + 1; j < nums.length; j++) {
+            if (nums[pivot] > nums[j]) {
+                pivot = j;
+            }
+        }
+        swap(i, pivot, nums);
+    }
+    return nums;
+}
+```
+
+## Insertion Sort
+
+```java
+public int[] insertionSort(int[] nums) {
+    for (int i = 0; i < nums.length; i++) {
+        int j = i;
+        while (j > 0 && nums[j] < nums[j - 1]) {
+            swap(j, j-1, nums);
+            j--;
+        }
+    }
+    return nums;
+}
+```
+
+## Merge Sort
+
+```java
+class Solution {
+    public int[] mergeSort(int[] nums) {
+
+        int n = nums.length;
+
+        splitHelper(0, n-1, nums);
+
+        return nums;
+
+    }
+
+    public void splitHelper(int low, int high, int[] nums) {
+        if (low >= high){
+            return;
+        }
+
+        int mid = (low + high) / 2;
+
+        splitHelper(low, mid, nums);
+        splitHelper(mid + 1, high, nums);
+
+        merge(low, mid, high, nums);
+    
+
+    }
+
+    public void merge(int low, int mid, int high, int[] nums) {
+        int[] temp = new int[high - low + 1];
+        int count = 0;
+
+        int left = low;
+        int right = mid + 1;
+        while(left <= mid && right <= high) {
+            if(nums[left] > nums[right]) {
+                temp[count] = nums[right];
+                count++;
+                right++;
+            } else {
+                temp[count] = nums[left];
+                count++;
+                left++;
+            }
+        }
+        while(left <= mid) {
+            temp[count] = nums[left];
+            count++;
+            left++;
+        }
+
+        while(right <= high) {
+            temp[count] = nums[right];
+            count++;
+            right++;
+        }
+        count = 0;
+        for(int i=low; i <=high; i++) {
+            nums[i] = temp[count];
+            count++;
+        }
+        return;
+    }
+}
+```
+
+## Quick Sort
+
+```java
+class Solution {
+    public int[] quickSort(int[] nums) {
+        int n = nums.length;
+        
+        quickSortHelper(0, n -1, nums);
+
+        return nums;
+
+    }
+    public void quickSortHelper(int low , int high, int[] nums) {
+        if(low < high) {
+            int pivot = partition(low, high, nums);
+
+            quickSortHelper(low, pivot - 1, nums);
+            quickSortHelper(pivot + 1, high, nums);
+        }
+    }
+
+    public int partition(int lowest, int highest, int[] nums) {
+        int pivot = highest;
+
+        int low = lowest;
+        int high = highest;
+
+        while(low < high) {
+            while(nums[pivot] >= nums[low] && low < highest) low++;
+            while(nums[pivot] < nums[high] && high > lowest) high--;
+
+            if(low <= high) {
+                swap(low, high, nums);
+            }
+        }
+        
+        swap(high, highest, nums);
+        return high;
+    }
+}
+
+```
