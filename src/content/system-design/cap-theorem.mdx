@@ -1,0 +1,93 @@
+---
+title: CAP Theorem (Brewer's Theorem)
+tags: HLD
+---
+
+## What is CAP Theorem?
+
+CAP theorem, also known as Brewer's theorem, states that it is impossible for a distributed system to simultaneously provide all three of these guarantees:
+
+- **C**onsistency
+- **A**vailability 
+- **P**artition Tolerance
+
+<MDXImage src="/png/system-design/cap.png" alt="CAP Theorem" />
+## Understanding the Three Components
+
+### 1. Consistency (C)
+- Every read receives the most recent write or an error
+- All nodes see the same data at the same time
+- If data is updated in one node, it should be instantly updated in all nodes
+
+### 2. Availability (A)
+- Every request receives a response (non-error)
+- System remains operational and responsive
+- No guarantee that the response contains the most recent data
+
+### 3. Partition Tolerance (P)
+- System continues to operate despite network failures
+- System functions even when network partitions occur
+- Handles communication breakdowns between nodes
+
+## Important Distinctions
+
+### Consistency in Different Contexts
+- **ACID Consistency**: Refers to data moving from one valid state to another
+- **CAP Consistency**: Refers to all nodes having the same data at the same time
+
+## Possible Combinations
+
+In distributed systems, you can only choose two out of three properties:
+
+1. **CP (Consistency + Partition Tolerance)**
+   - Sacrifices availability
+   - Good for: Banking, payments, stock trading
+   - When consistency is crucial
+
+2. **AP (Availability + Partition Tolerance)**
+   - Sacrifices consistency
+   - Good for: Social media, content delivery
+   - When eventual consistency is acceptable
+
+3. **CA (Consistency + Availability)**
+   - Sacrifices partition tolerance
+   - Not practical in distributed systems
+   - Network partitions are inevitable
+
+## Real-World Example
+
+Consider a system with three nodes (A, B, C):
+
+### Scenario 1: Consistency
+- All nodes (A, B, C) maintain the same data
+- When B updates data, it must propagate to A and C
+- System ensures all nodes show same data or returns error
+
+### Scenario 2: Availability
+- If node B fails, A and C continue operating
+- System keeps responding to requests
+- May not have most recent data
+
+### Scenario 3: Partition Tolerance
+- Network partition separates B from A and C
+- System continues functioning despite partition
+- May sacrifice either consistency or availability
+
+## Making the Choice
+
+### Why not CA?
+- CA systems assume no network partitions
+- In real distributed systems, network partitions are inevitable
+- Therefore, must choose between CP or AP
+
+### Choosing Between CP and AP
+
+Choose CP (Consistency over Availability) when:
+- Dealing with financial transactions
+- Managing critical business data
+- Working with systems requiring strong consistency
+
+Choose AP (Availability over Consistency) when:
+- Building social media platforms
+- Managing content delivery systems
+- Handling non-critical data where eventual consistency is acceptable

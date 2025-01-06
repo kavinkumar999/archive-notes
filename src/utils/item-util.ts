@@ -115,9 +115,17 @@ export const systemDesignItems = [
   {
     name: 'System Design Prerequisites',
     url: '/note/system-design-prerequisites'
+  },
+  {
+    name: 'CAP Theorem',
+    url: '/note/cap-theorem'
   }
 ];
 export const databaseItems = [
+  {
+    name: 'SQL vs NoSQL',
+    url: '/note/sql-no-sql'
+  },
   {
     name: 'DBMS',
     url: '/note/dbms'

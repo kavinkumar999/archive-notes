@@ -1,0 +1,149 @@
+---
+title: SQL vs NoSQL Databases
+tags: database
+---
+
+
+<MDXImage src="/png/database/sql-no-sql.png" alt="SQL vs NoSQL Comparison" />
+
+## SQL (Relational) Databases
+
+### Characteristics
+- **Structure**: Data stored in tables with rows and columns
+- **Schema**: Predefined, rigid schema
+- **Relationships**: Supports table relationships through foreign keys
+- **ACID Compliance**: Ensures data integrity and reliability
+- **Scaling**: Primarily vertical scaling (adding more power to existing servers)
+
+### Popular SQL Databases
+- MySQL
+- PostgreSQL
+- Oracle
+- SQL Server
+- SQLite
+
+## NoSQL (Non-Relational) Databases
+
+### Types of NoSQL Databases
+
+1. **Document-Based**
+   - Stores data in JSON-like documents
+   - Flexible schema
+   - Example: MongoDB
+
+2. **Key-Value Stores**
+   - Simple key-value pair storage
+   - High performance
+   - Examples: Redis, AWS DynamoDB
+
+3. **Column-Family Stores**
+   - Stores data in column families
+   - Optimized for queries over large datasets
+   - Example: Apache Cassandra
+
+4. **Graph Databases**
+   - Optimized for interconnected data
+   - Perfect for social networks, recommendations
+   - Example: Neo4j
+
+### Characteristics
+- **Schema**: Flexible, dynamic schema
+- **Scaling**: Horizontal scaling (adding more servers)
+- **ACID**: Generally sacrifices ACID compliance for performance
+- **Query Language**: Database-specific query languages
+
+## Scaling Comparison
+
+### SQL Scaling
+- **Vertical Scaling**
+  - Upgrade server hardware (CPU, RAM, Storage)
+  - Limited by single server capacity
+  - More expensive at scale
+
+### NoSQL Scaling
+- **Horizontal Scaling**
+  - Add more servers to handle load
+  - Uses sharding for data distribution
+  - More cost-effective at scale
+  - Better for handling large data volumes
+
+## When to Choose Which?
+
+### Choose SQL When:
+1. **Data is Structured**
+   - Fixed schema requirements
+   - Clear relationships between entities
+   - Example: Customer accounts, order management
+
+2. **ACID Compliance Needed**
+   - Financial transactions
+   - Banking applications
+   - E-commerce orders and payments
+   - Stock trading platforms
+
+3. **Complex Queries Required**
+   - Joins across multiple tables
+   - Complex aggregations
+   - Data analytics requirements
+
+### Choose NoSQL When:
+1. **Flexible Schema Needed**
+   - Evolving data structure
+   - Varied data formats
+   - Example: Product catalogs, user preferences
+
+2. **High Performance Required**
+   - Large volumes of data
+   - High read/write operations
+   - Real-time data processing
+   - Example: Social media feeds, IoT data
+
+3. **Scalability is Priority**
+   - Need for horizontal scaling
+   - Distributed data storage
+   - Example: Large-scale applications
+
+## Real-World Examples
+
+### SQL Use Cases
+- Banking transaction systems
+- Flight reservation systems
+- Order management systems
+- Employee management systems
+
+### NoSQL Use Cases
+- Social media platforms (posts, comments)
+- Real-time big data
+- Content management systems
+- IoT applications
+- Gaming applications
+
+## ACID vs BASE
+
+### ACID (SQL)
+- **Atomicity**: All or nothing transactions
+- **Consistency**: Data remains valid
+- **Isolation**: Concurrent transactions don't interfere
+- **Durability**: Committed data is permanent
+
+### BASE (NoSQL)
+- **Basically Available**: System guarantees availability
+- **Soft State**: State may change over time
+- **Eventually Consistent**: System becomes consistent over time
+
+## Best Practices
+
+1. **Hybrid Approach**
+   - Use both SQL and NoSQL when appropriate
+   - Choose based on specific component needs
+   - Example: SQL for transactions, NoSQL for user sessions
+
+2. **Consider Future Needs**
+   - Evaluate scaling requirements
+   - Plan for data growth
+   - Consider maintenance overhead
+
+3. **Performance Optimization**
+   - Use appropriate indexes
+   - Implement caching strategies
+   - Monitor and tune regularly
