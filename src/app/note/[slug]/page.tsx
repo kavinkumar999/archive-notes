@@ -3,13 +3,20 @@ import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
+import { MDXImage } from '@/components/MDXImage';
+
 const dirs = ['frontend', 'system-design', 'database', 'lld', 'templates'];
 const directories = dirs.map(dir => 'src/content/' + dir);
+
 const options = {
   mdxOptions: {
     remarkPlugins: [remarkGfm]
   }
 }
+
+const components = {
+  MDXImage: MDXImage,
+};
 
 export async function generateStaticParams() {
   let paths: { slug: string }[] = [];
@@ -65,7 +72,11 @@ export default function Post({ params }: { params : { slug : string } }) {
   return (
     <article className={`prose prose-sm md:prose-base lg:prose-lg prose-slate max-w-fit pr-16 dark:!prose-invert`}>
       <h1>{frontMatter.title}</h1>
-      <MDXRemote source={content} options={options} />
+      <MDXRemote 
+        source={content} 
+        options={options} 
+        components={components}
+      />
     </article>
   );
 }

@@ -1,7 +1,12 @@
+const publicPath = process.env.NODE_ENV === 'production' ? '/archive-notes' : '';
+
 const config = {
-  basePath: process.env.NODE_ENV === 'production' ? '/archive-notes' : '',
+  basePath: publicPath,
   images: {
     domains: ['kavinkumar999.github.io'],
+  },
+  publicRuntimeConfig: {
+    publicPath,
   },
 };
 
