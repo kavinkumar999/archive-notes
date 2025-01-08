@@ -7,6 +7,81 @@ System design is the process of defining the architecture, interfaces, and data 
 
 > System design requires a systematic approach to building and engineering systems
 
+## Scalability
+
+The ability of a system to accommodate a growing load or demand without compromising performance is referred to as scalability
+
+### Types of Scalability
+- **Vertical Scalability**: Increasing the size of the machine (e.g. more CPU, RAM, etc.)
+- **Horizontal Scalability**: Increasing the number of machines (e.g. more servers)
+
+| **Factors**        | Horizontal Scaling      | Vertical Scaling            |
+| ------------------ | ----------------------- | --------------------------- |
+| **Load Balancing** | Load Balancing Required | N\A                         |
+| **Failure**        | Resilient               | Single point of failure     |
+| **Communication**  | Network calls (RPC)     | Inter process communication |
+| **Data**           | Data Inconsistency      | Consistent                  |
+| **Scalability**    | Scales well             | Hardware Limit              |
+
+
+## Architecture
+
+**Monolithic & Microservices**
+
+### Monolithic
+A monolithic architecture is a traditional unified model where all components of an application are interconnected and operate as a single unit.
+
+#### Key Characteristics
+- All components (UI, business logic, database) integrated into a single application
+- Deployed as one unit
+- Shared database and resources
+- Tightly coupled components
+
+#### Advantages and Challenges
+- **Simple Development**: Easier to develop and test initially
+- **Simple Deployment**: Single deployment unit
+- **Challenges**: 
+  - Single point of failure
+  - Limited technology flexibility
+  - Complex maintenance as application grows
+
+#### Scalability in Monolithic
+Monolithic applications can be scaled, but with limitations:
+- **Horizontal Scaling**: Entire application replicated across machines
+- **Load Balancing**: Requests distributed across application instances
+- **Resource Usage**: Less efficient as entire application must be scaled together
+
+<MDXImage src="/png/system-design/monolithic-scaling.png" alt="Monolithic Architecture" />
+
+### Microservices
+Microservices architecture breaks down an application into small, independent services that can be developed, deployed, and scaled independently.
+
+#### Key Characteristics
+- Each service has its own database and business logic
+- Services are independently deployable and scalable
+- Inter-service communication happens over network protocols (REST APIs, message queues)
+
+#### Service Discovery and API Gateway
+In a microservices architecture, services are deployed on different machines:
+- Example: User service on `192.168.24.32`, Product service on `192.168.24.38`, etc.
+- Managing multiple IP addresses/domains is complex
+- Solution: API Gateway pattern
+
+##### API Gateway
+- Single entry point for all client requests
+- Routes incoming requests to appropriate microservices
+- Handles cross-cutting concerns (authentication, logging)
+
+<MDXImage src="/png/system-design/microservice.png" alt="Microservice Architecture" />
+
+#### Scalability in Microservices
+Microservices can be scaled independently based on demand:
+- **Horizontal Scaling**: Multiple instances of specific services
+- **Load Balancing**: Requests distributed across service instances
+- **Efficient Resource Usage**: Scale only the services that need it
+
+<MDXImage src="/png/system-design/microservice-scaling.png" alt="Microservice Scaling" />
+
 ## Availability
 
 Availability refers to the odds of a particular server or service being up and running at any point in time, usually measured in percentages
@@ -25,7 +100,7 @@ Availability typically refers to percentages of uptime. For example, 5 nines of 
 
 ## Client-Server Model
 
-<MDXImage src="/png/system-design/client-server.png" />
+<MDXImage src="/png/system-design/client-server.png" alt="Client-Server Model" />
 
 ### Client
 A **client** is a machine or process that requests data or services from a server.
@@ -75,7 +150,7 @@ DNS is a system that translates human-readable domain names into numerical IP ad
 
 ## Proxy
 
-<MDXImage src="/png/system-design/proxy.png" />
+<MDXImage src="/png/system-design/proxy.png" alt="Proxy" />
 
 ### Forward Proxy
 
@@ -100,6 +175,8 @@ DNS is a system that translates human-readable domain names into numerical IP ad
 - **Round Robin**: Distributes traffic evenly across servers.
 - **Least Connections**: Sends traffic to the server with the fewest active connections.
 - **IP Hash**: Distributes traffic based on the IP address of the client.
+
+<MDXImage src="/png/system-design/load-balancer.png" alt="Load Balancer" />
 
 ## Latency and Throughput
 - **Latency** is the time delay between initiating a task and its completion.
