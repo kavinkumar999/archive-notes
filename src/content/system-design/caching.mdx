@@ -1,0 +1,91 @@
+---
+title: Caching
+tags: HLD
+---
+
+## What is Caching?
+
+Caching is a performance optimization technique that stores frequently accessed data in fast-access memory (cache) instead of retrieving it repeatedly from slower storage systems.
+
+## Why Use Caching?
+
+1. **Reduced Network Calls** - Minimize requests to backend services
+2. **Avoid Recomputation** - Save expensive calculations
+3. **Lower Database Load** - Reduce pressure on primary storage
+4. **Improved Latency** - Faster data access and response times
+
+<MDXImage src="/png/system-design/caching.png" alt="Caching Overview" />
+
+## How Caching Works
+
+When a user requests data, the system follows this flow:
+
+1. **Check Cache First** - System looks for data in cache
+2. **Cache Hit** - If found, return data immediately from cache
+3. **Cache Miss** - If not found, fetch from main database
+4. **Update Cache** - Store newly fetched data in cache for future use
+
+<MDXImage src="/png/system-design/cache-flow.png" alt="Caching Flow" />
+
+### Important Metrics
+
+- **Cache Hit Rate** - Percentage of successful cache lookups
+- **Cache Miss Rate** - Percentage of failed cache lookups
+
+> Higher hit rates indicate effective caching, while high miss rates suggest need for optimization
+
+## Real-World Caching Examples
+
+1. **Web Browsers**
+   - Cache HTML, CSS, JavaScript files
+   - Store frequently accessed images
+   - Save user preferences
+
+2. **Content Delivery Networks (CDNs)**
+   - Cache static assets (images, videos)
+   - Store content closer to users
+   - Reduce global latency
+
+3. **DNS Caching**
+   - Store domain-to-IP mappings
+   - Reduce DNS lookup time
+   - Improve webpage loading speed
+
+## Cache Eviction Policies
+
+When cache memory fills up, some data must be removed. Common eviction strategies include:
+
+| Policy | Description |
+|--------|-------------|
+| LRU (Least Recently Used) | Removes oldest unused items |
+| LFU (Least Frequently Used) | Removes least accessed items |
+| MRU (Most Recently Used) | Removes newest used items |
+| TTL (Time To Live) | Removes items after set duration |
+| RR (Random Replacement) | Removes random items |
+| FIFO (First In First Out) | Removes oldest items first |
+
+## Benefits and Limitations
+
+### Advantages ✅
+
+- **Fast Access** - Significantly reduced data retrieval time
+- **High Throughput** - Handle more requests efficiently
+- **Reduced Load** - Less pressure on backend databases
+- **Cost Effective** - Lower infrastructure costs
+- **Offline Support** - Access data without network
+
+### Disadvantages ⚠️
+
+- **Data Consistency** - Cache can become stale
+- **Cache Miss Penalty** - Additional latency on misses
+- **Warm-up Time** - Initial performance impact
+- **Write Operations** - Limited benefit for write-heavy workloads
+- **Memory Constraints** - Limited by available cache size
+
+## Best Practices
+
+1. Cache only frequently accessed data
+2. Implement appropriate eviction policies
+3. Monitor cache hit/miss rates
+4. Set reasonable TTL values
+5. Plan for cache invalidation

@@ -119,6 +119,14 @@ export const systemDesignItems = [
   {
     name: 'CAP Theorem',
     url: '/note/cap-theorem'
+  },
+  {
+    name: 'Caching',
+    url: '/note/caching'
+  },
+  {
+    name: 'Caching Database Strategies',
+    url: '/note/caching-database-strategies'
   }
 ];
 export const databaseItems = [

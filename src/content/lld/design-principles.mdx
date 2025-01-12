@@ -1,0 +1,174 @@
+---
+title: Design Principles
+tags: lld
+---
+
+1. **DRY** - Don't Repeat Yourself
+2. **KISS** - Keep It Simple and Stupid
+3. **YAGNI** - You Ain't Gonna Need It
+4. **SoC** - Separation of Concerns
+5. **Favor Composition over Inheritance**
+6. **Program to Interface, not Implementation**
+
+### 1. DRY - Don't Repeat Yourself
+
+**Definition:**  
+Each piece of code should appear only once in the entire system. Duplicating code across multiple locations makes maintenance harder and increases inconsistencies.
+
+**Solution:**  
+Modularize your source code by writing each task as a separate method, promoting code reuse.
+
+**Example of Poor Coding:**
+
+```java
+public class AreaCalculator {
+    public static void main(String[] args) {
+        // Area of rectangle
+        double length = 5.0;
+        double width = 3.0;
+        double rectangleArea = length * width;
+        System.out.println("Area of rectangle: " + rectangleArea);
+
+        // Area of circle
+        double radius = 4.0;
+        double circleArea = Math.PI * radius * radius;
+        System.out.println("Area of circle: " + circleArea);
+    }
+}
+```
+
+**Violation:** Code duplication in area calculation.
+
+**Example of Best Coding Practice:**
+
+```java
+public class AreaCalculator {
+    public static void main(String[] args) {
+        double length = 5.0;
+        double width = 3.0;
+        double rectangleArea = calculateRectangleArea(length, width);
+        System.out.println("Area of rectangle: " + rectangleArea);
+
+        double radius = 4.0;
+        double circleArea = calculateCircleArea(radius);
+        System.out.println("Area of circle: " + circleArea);
+    }
+
+    private static double calculateRectangleArea(double length, double width) {
+        return length * width;
+    }
+
+    private static double calculateCircleArea(double radius) {
+        return Math.PI * radius * radius;
+    }
+}
+```
+
+---
+
+### 2. KISS - Keep It Simple and Stupid
+
+**Definition:**  
+Code should be simple, easy to understand, and straightforward to debug and modify. This reduces complexity and minimizes bugs.
+
+**Example of Poor Coding:**
+
+```java
+public class Factorial {
+    public static void main(String[] args) {
+        // Complex logic for simple factorial calculation.
+    }
+}
+```
+
+**Example of Best Coding Practice:**
+
+```java
+public class Factorial {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int number = scanner.nextInt();
+
+        if (number < 0) {
+            System.out.println("Factorial is not defined for negative numbers.");
+        } else {
+            long factorial = calculateFactorial(number);
+            System.out.println("Factorial of " + number + " is " + factorial);
+        }
+    }
+
+    private static long calculateFactorial(int n) {
+        long result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+}
+```
+
+---
+
+### 3. YAGNI - You Ain't Gonna Need It
+
+**Definition:**  
+Implement features only when they are needed. Avoid premature optimization or over-engineering.
+
+**Example of Poor Coding:** Includes unnecessary discount handling in a shopping cart class.
+
+**Example of Best Coding Practice:** Focus only on essential functionality for the current requirements.
+
+---
+
+### 4. SoC - Separation of Concerns
+
+**Definition:**  
+Organize code into distinct sections, each addressing a specific concern. This promotes modularity and scalability.
+
+**Example of Poor Coding:**  
+Combines user input, validation, and display logic in a single class.
+
+**Example of Best Coding Practice:**  
+Separate these concerns into different classes.
+
+---
+
+### 5. Favor Composition over Inheritance
+
+**Definition:**  
+Prefer composing objects rather than relying on inheritance. This supports "has a" relationships and enhances flexibility.
+
+**Example of Poor Coding:**
+
+```java
+class Vehicle {
+    void start() {
+        System.out.println("Vehicle is starting");
+    }
+}
+```
+
+**Example of Best Coding Practice:** Use composition to include functionality in classes like `Engine`, `Horn`, and `Bell`.
+
+---
+
+### 6. Program to Interface, not Implementation
+
+**Definition:**  
+Use interfaces to decouple code from specific implementations, enhancing flexibility.
+
+**Example of Poor Coding:**  
+Directly uses concrete classes, leading to tighter coupling.
+
+**Example of Best Coding Practice:**  
+
+```java
+interface Drivable {
+    void drive();
+}
+```
+
+---
+
+**Key Takeaway:** Applying these principles results in cleaner, more maintainable, and scalable code.

@@ -1,0 +1,164 @@
+---
+title: Caching Database Strategies
+tags: HLD
+---
+
+## Introduction
+
+Caching speeds up data access, but implementing the right caching strategy is crucial for optimal performance. Let's explore different approaches for reading and writing data with caches.
+
+## Read Strategies
+
+### 1. Cache Aside (Lazy Loading) 📖
+
+**How it works:**
+- Application checks cache first
+- On cache miss, fetches from database
+- Updates cache with new data
+- Returns data to client
+
+**Best for:**
+- Applications with irregular access patterns
+- Systems where cache misses are acceptable
+- Scenarios requiring fine-grained control over cache
+
+<MDXImage src="/png/system-design/cache-aside.png" alt="Cache Aside" />
+
+### 2. Read Through 📚
+
+**How it works:**
+- Cache handles all database interactions
+- Automatically fetches missing data
+- Maintains data consistency
+- Abstracts complexity from application
+
+**Best for:**
+- Systems requiring consistent data access patterns
+- Applications needing simplified cache management
+- Scenarios where cache miss handling should be automated
+
+<MDXImage src="/png/system-design/read-through.png" alt="Read Through" />
+
+## Write Strategies
+
+### 1. Write Around ✍️
+
+**How it works:**
+- Writes go directly to database
+- Cache is bypassed during writes
+- Reads still check cache first
+
+**Benefits:**
+- Prevents cache flooding
+- Efficient for write-heavy workloads
+- Reduces cache churn
+
+**Challenges:**
+- Higher latency for recent data reads
+- Potential cache misses for new data
+
+<MDXImage src="/png/system-design/write-around.png" alt="Write Around" />
+
+### 2. Write Back (Delayed Write) 🔄
+
+**How it works:**
+- Writes go to cache first
+- Asynchronous database updates
+- Periodic flush to database
+
+**Benefits:**
+- Low write latency
+- High write throughput
+- Handles write-heavy workloads well
+
+**Challenges:**
+- Risk of data loss
+- Consistency challenges
+- Complex recovery process
+
+<MDXImage src="/png/system-design/write-back.png" alt="Write Back" />
+
+### 3. Write Through 💾
+
+**How it works:**
+- Simultaneous cache and database updates
+- Synchronous write operations
+- Immediate consistency
+
+**Benefits:**
+- Strong data consistency
+- No data loss risk
+- Simple recovery
+
+**Challenges:**
+- Higher write latency
+- Increased system load
+- Resource intensive
+
+<MDXImage src="/png/system-design/write-through.png" alt="Write Through" />
+
+## Real-World Implementation Patterns
+
+### Pattern 1: Cache Aside + Write Through 🌐
+
+**Best for: E-commerce Platforms**
+
+1. **Product Catalog:**
+   - Cache popular products
+   - Immediate price updates
+   - Consistent inventory data
+
+2. **Implementation:**
+   - Read: Cache Aside for product details
+   - Write: Write Through for orders/inventory
+   - Invalidate: Clear cache on updates
+
+### Pattern 2: Read Through + Write Back 📈
+
+**Best for: Social Media Platforms**
+
+1. **Content Feed:**
+   - Buffer user posts
+   - Optimize for high write volume
+   - Accept eventual consistency
+
+2. **Implementation:**
+   - Posts: Write Back for quick acknowledgment
+   - Reads: Read Through for consistent access
+   - Sync: Periodic database updates
+
+
+## Strategy Selection Guide
+
+| Requirement | Recommended Strategy |
+|-------------|---------------------|
+| Strong Consistency | Write Through |
+| High Write Performance | Write Back |
+| Write-Heavy Workload | Write Around |
+| Read-Heavy Workload | Cache Aside |
+| Automated Cache Management | Read Through |
+
+## Quick Reference Cheatsheet
+
+<MDXImage src="/png/system-design/cache-cheatsheet.png" alt="Cache Strategy Cheatsheet" />
+
+## Best Practices
+
+1. **Choose Based On:**
+   - Consistency requirements
+   - Performance needs
+   - Data access patterns
+   - System resources
+
+2. **Consider:**
+   - Cache size limitations
+   - Network reliability
+   - Data update frequency
+   - Recovery requirements
+
+3. **Monitor:**
+   - Cache hit/miss rates
+   - Write performance
+   - Data consistency
+   - System resources
+
