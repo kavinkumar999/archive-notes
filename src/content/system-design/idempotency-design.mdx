@@ -1,0 +1,115 @@
+---
+title: Idempotency Design for POST API
+tags: HLD
+---
+
+## **1. What is Idempotency?**
+- **Definition:** An operation is idempotent if performing it multiple times results in the same outcome as performing it once.
+- **Key Requirement:** The system remains in the same state regardless of how many times the request is made.
+
+
+## **2. Importance of Idempotency**
+- **Prevents Duplicate Operations:** Ensures actions like resource creation or payment processing are executed only once.
+- **Resilience to Network Issues:** Handles retries gracefully during server timeouts or disconnections.
+- **Consistency:** Improves the reliability of distributed systems by avoiding unintended state changes.
+
+
+## **3. Idempotency in HTTP Methods**
+
+| **HTTP Method** | **Idempotent?** | **Description**                      |
+|-----------------|-----------------|---------------------------------------|
+| **GET**         | Yes             | Fetches resource without modifying it. |
+| **PUT**         | Yes             | Updates or creates a resource; repeated calls yield the same result. |
+| **DELETE**      | Yes             | Deletes a resource; subsequent calls have no additional effect. |
+| **POST**        | No (by default) | Creates or triggers actions; needs special handling for idempotency. |
+
+
+## **4. Achieving Idempotency for POST APIs**
+
+### **1. Use Unique Request Identifiers (Idempotency Keys)**
+- **Client:** Generates a unique `Idempotency-Key` for each request.
+- **Server:**  
+  - Checks for the key in a persistent store.
+  - If the key exists, returns the previous response without processing again.
+  - If the key doesn't exist, processes the request and stores the key.
+
+#### **Example Workflow**
+```json
+POST /create-payment
+Headers:
+{
+  "Idempotency-Key": "abcd-1234-unique-key"
+}
+Body:
+{
+  "amount": 100.00,
+  "currency": "USD",
+  "payment_method": "credit_card"
+}
+```
+
+1. **First Request:**  
+   - Payment created, response stored with key `"abcd-1234-unique-key"`.
+2. **Duplicate Request:**  
+   - Server returns the same response without creating a new payment.
+
+
+### **2. Atomic Operations**
+- Ensure that the **payment creation and key storage** occur in a single database transaction.
+- Prevents partial operations that could lead to system inconsistency.
+
+
+### **3. Request Status Tracking**
+- Implement a **status check API** that allows clients to query the status of a transaction.
+
+#### **Status Check API Example**
+```http
+GET /payment-status?idempotency_key=abcd-1234-unique-key
+```
+
+#### **Sample Response**
+```json
+{
+  "status": "completed",
+  "transaction_id": "txn-7890",
+  "amount": 100.00
+}
+```
+
+
+### **4. Database Constraints**
+- Use **unique constraints** on transaction-related fields (e.g., `order_id` or `transaction_id`) to prevent duplicate records.
+
+#### **SQL Example**
+```sql
+CREATE UNIQUE INDEX idx_transaction_id ON payments (idempotency_key);
+```
+
+
+## **5. Example Scenario: Payment Processing**
+
+### **Problem:**  
+Network timeout during payment creation causes client retries, potentially resulting in duplicate charges.
+
+### **Solution:**  
+- Client sends a unique `Idempotency-Key` with each payment request.
+- Server stores the key and payment result atomically.
+- On retries, server checks for the key and returns the same response.
+
+
+## **6. Best Practices for Idempotency**
+
+| **Technique**         | **Description**                                          |
+|------------------------|-----------------------------------------------------------|
+| **Idempotency Keys**   | Detect and prevent duplicate operations using unique keys. |
+| **Atomic Operations**  | Ensure request processing and storage are done together.  |
+| **Status Check API**   | Allow clients to verify transaction completion.           |
+| **Database Constraints** | Enforce uniqueness to avoid duplicate entries.          |
+
+
+
+## **TLDR;**
+- **Idempotency is critical** for ensuring reliable operations in distributed systems and critical processes like payment transactions.
+- Techniques like **idempotency keys**, **atomic operations**, and **status tracking** help prevent duplicate actions and maintain consistency.
+- Careful design of APIs ensures robust and user-friendly systems even in error-prone environments.
+

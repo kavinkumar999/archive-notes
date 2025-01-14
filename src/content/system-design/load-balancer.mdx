@@ -1,0 +1,137 @@
+---
+title: Load Balancer Deep Dive
+tags: HLD
+---
+
+Load balancers distribute incoming 📢 network traffic 🚗 across multiple 💻 servers to ensure high 🔴 availability and reliability. Effective load balancing improves 📈 performance by optimizing resource ♻️ use, maximizing throughput, reducing ⏳ latency, and ensuring fault tolerance.
+
+<MDXImage src="/png/system-design/load-balancer.png" alt="Load Balancer" />
+
+## 🔧 Types of Load Balancing Algorithms
+
+### 1. ⭐ **Round Robin**
+- **🔍:** Distributes requests sequentially ⏩ to each server in the pool.
+- **💼:** Effective when all servers have similar capabilities and resource availability.
+- **📝:**
+  - 📦 Server Pool: A, B, C
+  - 📝 Incoming requests: 1, 2, 3, 4, 5
+  - 📢 Request Distribution: 1 -> A, 2 -> B, 3 -> C, 4 -> A, 5 -> B
+
+#### ✅ Advantages:
+- Simple to implement.
+- Fair distribution when servers have similar ⚙️ loads.
+
+#### ⛔ Disadvantages:
+- Ignores server performance or load.
+- Can overload slower servers.
+
+---
+
+### 2. ⭐ **Weighted Round Robin**
+- **🔍:** Assigns weights ⚖️ to servers based on their capacity. Servers with higher weights ↑ receive more requests.
+- **💼:** Useful when servers have different processing capacities.
+- **📝:**
+  - 📦 Server A (weight 3), Server B (weight 1)
+  - 📢 Request Distribution: A, A, A, B, A, A, A, B
+
+#### ✅ Advantages:
+- Accounts for server capacity differences.
+
+#### ⛔ Disadvantages:
+- Still static; doesn’t adapt to dynamic changes in server load.
+
+---
+
+### 3. ⭐ **Least Connections**
+- **🔍:** Routes traffic 📥 to the server with the fewest active 🛠️ connections.
+- **💼:** Suitable for environments with long-lived connections.
+- **📝:**
+  - 📦 Server A: 3 connections, Server B: 1 connection
+  - 📢 New request goes to Server B.
+
+#### ✅ Advantages:
+- Balances based on current server load.
+
+#### ⛔ Disadvantages:
+- May not account for connection types or resource usage.
+
+---
+
+### 4. ⭐ **IP Hash**
+- **🔍:** Uses a 🔑 hash function based on the client’s IP address to determine the server.
+- **💼:** Ensures a client is consistently routed to the same server.
+- **📝:**
+  - Hash(Client IP) % Number of Servers
+  - Client 192.168.1.1 always goes to Server A.
+
+#### ✅ Advantages:
+- Useful for session persistence.
+
+#### ⛔ Disadvantages:
+- Poor load distribution if client IPs are unevenly distributed.
+
+---
+
+### 5. ⭐ **Random**
+- **🔍:** Selects a server randomly 🔐.
+- **💼:** Simple distribution when server loads are approximately equal.
+- **📝:**
+  - 📦 Server Pool: A, B, C
+  - 📢 Request Distribution: 1 -> B, 2 -> A, 3 -> C
+
+#### ✅ Advantages:
+- Simple and effective with homogeneous servers.
+
+#### ⛔ Disadvantages:
+- Does not consider server load or capacity.
+
+---
+
+### 6. ⭐ **Least Response Time**
+- **🔍:** Routes traffic to the server with the lowest response time.
+- **💼:** Ideal for environments where response times vary.
+
+#### ✅ Advantages:
+- Optimizes 🔄 performance by considering server response speeds.
+
+#### ⛔ Disadvantages:
+- Requires real-time ⌛ monitoring of server response times.
+
+---
+
+### 7. ⭐ **Dynamic Load Balancing**
+- **🔍:** Continuously monitors 🔔 server load and dynamically adjusts traffic distribution.
+- **💼:** Suitable for highly variable workloads.
+
+#### ✅ Advantages:
+- Adapts to changing server conditions.
+
+#### ⛔ Disadvantages:
+- More complex to implement and maintain.
+
+---
+## 🏗️ **Stateful vs Stateless Load Balancing**
+
+| **Type** | **Definition** | **Use Case** | **How It Works** | **Advantages** | **Disadvantages** |
+| --- | --- | --- | --- | --- | --- |
+| **Stateful** | Tracks and stores client session information | Session persistence, personalized user experiences | Directs client to specific server, maintains session consistency | Ensures user session continuity | Complexity in managing session data, limited scalability |
+| **Stateless** | Does not store session information, treats each request independently | RESTful APIs, microservices, high scalability systems | Routes client request to any available server, no session context needed | Simpler to scale and maintain, reduces server memory overhead | Cannot natively maintain session continuity |
+
+---
+
+
+## **Layer 4 vs. Layer 7 Load Balancing**
+
+### 🔒 **Layer 4 Load Balancing**
+- **Definition:** Operates at the transport layer of the OSI model.
+- **Function:** Directs traffic based on IP addresses and ports.
+- **Advantages:** Simple and fast due to minimal data inspection.
+- **Disadvantages:** Lacks ability to make decisions based on application-specific data.
+
+### 🌐 **Layer 7 Load Balancing**
+- **Definition:** Operates at the application layer of the OSI model.
+- **Function:** Directs traffic based on HTTP headers, cookies, and request content.
+- **Advantages:** Supports sophisticated traffic management such as routing by URLs or user agents.
+- **Disadvantages:** More complex and slower due to deep packet inspection.
+
+---

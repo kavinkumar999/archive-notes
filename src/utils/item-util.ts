@@ -127,6 +127,22 @@ export const systemDesignItems = [
   {
     name: 'Caching Database Strategies',
     url: '/note/caching-database-strategies'
+  },
+  {
+    name: 'Consistent Hashing',
+    url: '/note/consistent-hashing'
+  },
+  {
+    name: 'Load Balancer Deep Dive',
+    url: '/note/load-balancer'
+  },
+  {
+    name: 'Cryptographic Encryption',
+    url: '/note/cryptographic-encrption'
+  },
+  {
+    name: 'Idempotency Design for POST',
+    url: '/note/idempotency-design'
   }
 ];
 export const databaseItems = [
