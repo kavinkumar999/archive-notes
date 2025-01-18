@@ -143,6 +143,14 @@ export const systemDesignItems = [
   {
     name: 'Idempotency Design for POST',
     url: '/note/idempotency-design'
+  },
+  {
+    name: 'Distributed Transactions',
+    url: '/note/distributed-transactions'
+  },
+  {
+    name: 'Concurrency Control in Distributed System',
+    url: '/note/concurrency-control-distributed-system'
   }
 ];
 export const databaseItems = [

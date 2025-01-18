@@ -1,0 +1,84 @@
+---
+title: Concurrency Control
+tag: HLD
+---
+
+Concurrency arises when multiple transactions or processes attempt to access and modify shared data simultaneously in a distributed system. This can lead to various issues, including:
+
+- **Data Inconsistency**: Data corruption or loss of integrity due to concurrent modifications. 🤯
+- **Lost Updates**: Updates from one transaction are overwritten by another, resulting in data loss. 😱
+- **Dirty Reads**: Reading data modified by an uncommitted transaction, which may not be valid. 🤔
+- **Unrepeatable Reads**: Reading different values of the same data item within a single transaction due to concurrent modifications. 🤷‍♂️
+
+To address these issues, two primary strategies for handling concurrent transactions are employed:
+
+1. **Pessimistic Concurrency Control**
+2. **Optimistic Concurrency Control**
+
+## **1. Pessimistic Concurrency Control**
+
+This approach involves acquiring locks before data is accessed, preventing other transactions from modifying the data. There are two types of locks:
+
+- **Shared Locks**: Allow multiple transactions to read the data concurrently. 📚
+- **Exclusive Locks**: Allow only one transaction to read or write the data at a time. 🛠️
+
+- **Advantages**: Simple to implement and provides strong isolation guarantees. 🏆
+- **Disadvantages**: Can lead to high contention and reduced concurrency if locks are held for extended periods. 📉
+
+### **Two-Phase Locking (2PL)**
+Two-Phase Locking ensures serializability by dividing the transaction execution into two phases:
+
+1. **Growing Phase**: The transaction acquires locks but does not release any. 📈
+2. **Shrinking Phase**: The transaction releases locks but does not acquire new ones. 📉
+
+#### **Subtypes of 2PL:**
+
+- **Strict 2PL**: Locks are held until the transaction commits. 🚫
+- **Rigorous 2PL**: Locks are held until the transaction commits and its updates are made durable. 🛡️
+
+## **2. Optimistic Concurrency Control**
+Optimistic Concurrency Control (OCC) assumes conflicts are rare and allows transactions to execute without locks, resolving conflicts during a validation phase. 🤞
+
+- **Timestamp Ordering (TO)**: Assigns a timestamp to each transaction and orders operations by these timestamps. 🕒
+
+- **Multiversion Concurrency Control (MVCC)**: Maintains multiple versions of data items to provide consistent reads without locking. 🔄
+
+- **Thomas' Write Rule**: Ignores outdated writes based on timestamps to improve efficiency. 📝
+
+## **Comparison of Concurrency Control Methods**
+
+| **Aspect**            | **Pessimistic (2PL)**      | **Optimistic (OCC)**        |
+|------------------------|----------------------------|-----------------------------|
+| **Locking**            | Extensive                  | No initial locks            |
+| **Deadlock Possibility**| Yes                        | No                          |
+| **Transaction Blocking**| Frequent                   | Minimal                     |
+| **Rollback Frequency** | Low                        | High in conflict scenarios  |
+| **Best Use Case**      | High-contention environments | Low-contention environments |
+
+## Performance Comparison
+
+| Scenario | Pessimistic | Optimistic | Best Choice |
+|----------|-------------|------------|-------------|
+| Concert Tickets | ✅ | ❌ | Pessimistic |
+| Social Media Likes | ❌ | ✅ | Optimistic |
+| Bank Transfers | ✅ | ❌ | Pessimistic |
+| Product Views | ❌ | ✅ | Optimistic |
+
+### When to Use Pessimistic Control
+1. Financial transactions 💰
+2. Limited resource allocation 🎫
+3. High-stakes operations 🏦
+4. High contention scenarios 👥
+
+### When to Use Optimistic Control
+1. Social media interactions 👍
+2. Content management 📝
+3. Analytics systems 📊
+4. Read-heavy workloads 👀
+
+## TLDR 📌
+- Use Pessimistic Control for critical, high-contention operations 🛡️
+- Use Optimistic Control for read-heavy, low-contention scenarios 🚀
+- Consider hybrid approaches for complex systems 🔄
+- Always plan for failure cases 🔧
+- Monitor system performance and adjust accordingly 📈
