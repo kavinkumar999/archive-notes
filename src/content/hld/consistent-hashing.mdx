@@ -15,7 +15,7 @@ Consistent hashing is a technique used in distributed systems, such as load bala
 - **Problem**: Traditional hashing techniques cause a large portion of the data to be rehashed and relocated whenever a server is added or removed, which is inefficient.
 - **Solution**: Consistent hashing ensures that only a small number of data items (keys) need to be reassigned when a server is added or removed.
 
-<MDXImage src="/png/system-design/consistent-hashing.png" alt="Consistent Hashing" />
+<MDXImage src="/png/hld/consistent-hashing.png" alt="Consistent Hashing" />
 ## How Does Consistent Hashing Work?
 
 1. **Hash the Nodes (Servers)**: Servers are assigned a hash value and mapped onto a **circular hash ring**.

@@ -22,7 +22,7 @@ Caching speeds up data access, but implementing the right caching strategy is cr
 - Systems where cache misses are acceptable
 - Scenarios requiring fine-grained control over cache
 
-<MDXImage src="/png/system-design/cache-aside.png" alt="Cache Aside" />
+<MDXImage src="/png/hld/cache-aside.png" alt="Cache Aside" />
 
 ### 2. Read Through 📚
 
@@ -37,7 +37,7 @@ Caching speeds up data access, but implementing the right caching strategy is cr
 - Applications needing simplified cache management
 - Scenarios where cache miss handling should be automated
 
-<MDXImage src="/png/system-design/read-through.png" alt="Read Through" />
+<MDXImage src="/png/hld/read-through.png" alt="Read Through" />
 
 ## Write Strategies
 
@@ -57,7 +57,7 @@ Caching speeds up data access, but implementing the right caching strategy is cr
 - Higher latency for recent data reads
 - Potential cache misses for new data
 
-<MDXImage src="/png/system-design/write-around.png" alt="Write Around" />
+<MDXImage src="/png/hld/write-around.png" alt="Write Around" />
 
 ### 2. Write Back (Delayed Write) 🔄
 
@@ -76,7 +76,7 @@ Caching speeds up data access, but implementing the right caching strategy is cr
 - Consistency challenges
 - Complex recovery process
 
-<MDXImage src="/png/system-design/write-back.png" alt="Write Back" />
+<MDXImage src="/png/hld/write-back.png" alt="Write Back" />
 
 ### 3. Write Through 💾
 
@@ -95,7 +95,7 @@ Caching speeds up data access, but implementing the right caching strategy is cr
 - Increased system load
 - Resource intensive
 
-<MDXImage src="/png/system-design/write-through.png" alt="Write Through" />
+<MDXImage src="/png/hld/write-through.png" alt="Write Through" />
 
 ## Real-World Implementation Patterns
 
@@ -140,7 +140,7 @@ Caching speeds up data access, but implementing the right caching strategy is cr
 
 ## Quick Reference Cheatsheet
 
-<MDXImage src="/png/system-design/cache-cheatsheet.png" alt="Cache Strategy Cheatsheet" />
+<MDXImage src="/png/hld/cache-cheatsheet.png" alt="Cache Strategy Cheatsheet" />
 
 ## Best Practices
 

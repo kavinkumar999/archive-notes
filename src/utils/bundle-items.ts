@@ -1,14 +1,15 @@
 import { SidebarItemProps, SidebarProps, SidebarGroupEnum } from '@/utils/type';
-import { jsItems, reactItems, domItems, systemDesignItems, databaseItems, lldItems, templateItems } from '@/utils/item-util';
+import { jsItems, reactItems, domItems, hldItems, databaseItems, lldItems, templateItems, systemDesignCaseStudyItems } from '@/utils/item-util';
 
 export const notesHash: { [key in SidebarGroupEnum]: SidebarItemProps[] } = {
-  [SidebarGroupEnum.HLD]: systemDesignItems,
+  [SidebarGroupEnum.HLD]: hldItems,
   [SidebarGroupEnum.TEMPLATES]: templateItems,
   [SidebarGroupEnum.JAVASCRIPT]: jsItems,
   [SidebarGroupEnum.REACT]: reactItems,
   [SidebarGroupEnum.DOM]: domItems,
   [SidebarGroupEnum.DATABASE]: databaseItems,
   [SidebarGroupEnum.LLD]: lldItems,
+  [SidebarGroupEnum.SYSTEM_DESIGN]: systemDesignCaseStudyItems,
 };
 
 function getSideBarItems(folder: SidebarGroupEnum): SidebarItemProps[] {

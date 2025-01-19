@@ -1,0 +1,65 @@
+---
+title: Stripe Double Payment
+tags: system-design
+---
+
+## Stripe Implements Idempotent APIs 🚀💳
+
+Stripe, founded in 2010 by two brothers in California, revolutionized online payments by solving a fundamental problem: **double payments**. This issue arises when users are mistakenly charged twice for the same transaction. Let’s dive into how Stripe tackled this challenge using **idempotent APIs**. 
+
+### **The Double Payment Problem** ⚠️  
+Double payments can occur due to two major reasons:
+
+#### 1. **Server Errors** 🖥️
+- The request might fail while the server is processing it.  
+- The client doesn’t know if the request succeeded, making retries unsafe.  
+- Retrying without safeguards may result in duplicate charges.
+
+<MDXImage src="/png/system-design/double-payment-1.png" alt="Stripe Double Payment" /> 
+
+#### 2. **Network Errors** 🌐  
+- The server successfully processes the request, but the network fails while returning the response to the client.  
+- The client remains unsure whether the request succeeded, leading to potential retries and double payments.
+
+<MDXImage src="/png/system-design/double-payment-2.png" alt="Stripe Double Payment" /> 
+
+### **The Solution: [Idempotent](/note/idempotency-design) APIs** 🛡️  
+An **idempotent API** ensures that a specific request can be retried multiple times without unintended side effects. Essentially, a particular request is guaranteed to be processed **exactly once**, even after multiple retries.
+
+Here’s how Stripe achieves this using the [Idempotency](/note/idempotency-design) key:  
+
+### **1. Idempotency Keys** 🔑
+- **What is an idempotency key?**  
+  A **unique string (UUID)** that acts as a fingerprint for each request.  
+  - It helps track whether a request has already been processed.
+  - A new UUID is generated whenever the request payload changes.
+
+- **How is it used?**  
+  - The client sends the idempotency key in the **HTTP headers** with every request.  
+  - On the server side:
+    - Stripe stores the idempotency keys in an **in-memory database**.
+    - After processing a request, it caches the server response.
+    - If a duplicate request arrives, the cached response is returned instead of reprocessing it.
+
+<MDXImage src="/png/system-design/idempotency.png" alt="Stripe Double Payment" /> 
+
+- **What happens during errors?**  
+  - If a **server error** occurs, Stripe rolls back the transaction using an **ACID-compliant database** to maintain consistency.  
+  - Idempotency keys are **removed after 24 hours**, allowing for retries while minimizing storage costs.
+
+
+### **2. Retrying Failed Requests** 🔄  
+Retrying failed requests is a crucial feature but can overload servers if not handled carefully.
+
+- **Exponential Backoff** ⏳  
+  Clients wait progressively longer between retries to avoid overwhelming the server.
+
+- **Jitter** 🎲  
+  Random delays (jitter) are added to the waiting time to prevent the **thundering herd problem**, where many clients retry at once and cause server overload.
+
+### **Curious Facts About Stripe's Idempotency** 🌟  
+- Idempotency keys are like digital fingerprints for transactions—unique, trackable, and reusable after 24 hours.  
+- The combination of **exponential backoff** and **jitter** ensures robust retry mechanisms without compromising server health.  
+- Stripe's system design reflects the philosophy that **simple solutions are often the best solutions**.
+
+---

@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import { MDXImage } from '@/components/MDXImage';
 
-const dirs = ['frontend', 'system-design', 'database', 'lld', 'templates'];
+const dirs = ['frontend', 'hld', 'database', 'lld', 'templates', 'system-design'];
 const directories = dirs.map(dir => 'src/content/' + dir);
 
 const options = {

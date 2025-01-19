@@ -110,8 +110,14 @@ export const reactItems = [
     url: '/note/use-window-size'
   }
 ];
+export const systemDesignCaseStudyItems = [
+  {
+    name: 'Stripe Double Payment',
+    url: '/note/stripe-double-payment'
+  }
+]
 
-export const systemDesignItems = [
+export const hldItems = [
   {
     name: 'System Design Prerequisites',
     url: '/note/system-design-prerequisites'
@@ -151,6 +157,10 @@ export const systemDesignItems = [
   {
     name: 'Concurrency Control',
     url: '/note/concurrency-control'
+  },
+  {
+    name: 'Thundering Herd',
+    url: '/note/thundering-herd'
   },
   {
     name: 'Messaging Queue',

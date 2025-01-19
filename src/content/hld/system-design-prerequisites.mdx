@@ -51,7 +51,7 @@ Monolithic applications can be scaled, but with limitations:
 - **Load Balancing**: Requests distributed across application instances
 - **Resource Usage**: Less efficient as entire application must be scaled together
 
-<MDXImage src="/png/system-design/monolithic-scaling.png" alt="Monolithic Architecture" />
+<MDXImage src="/png/hld/monolithic-scaling.png" alt="Monolithic Architecture" />
 
 ### Microservices
 Microservices architecture breaks down an application into small, independent services that can be developed, deployed, and scaled independently.
@@ -72,7 +72,7 @@ In a microservices architecture, services are deployed on different machines:
 - Routes incoming requests to appropriate microservices
 - Handles cross-cutting concerns (authentication, logging)
 
-<MDXImage src="/png/system-design/microservice.png" alt="Microservice Architecture" />
+<MDXImage src="/png/hld/microservice.png" alt="Microservice Architecture" />
 
 #### Scalability in Microservices
 Microservices can be scaled independently based on demand:
@@ -80,7 +80,7 @@ Microservices can be scaled independently based on demand:
 - **Load Balancing**: Requests distributed across service instances
 - **Efficient Resource Usage**: Scale only the services that need it
 
-<MDXImage src="/png/system-design/microservice-scaling.png" alt="Microservice Scaling" />
+<MDXImage src="/png/hld/microservice-scaling.png" alt="Microservice Scaling" />
 
 ## Availability
 
@@ -100,7 +100,7 @@ Availability typically refers to percentages of uptime. For example, 5 nines of 
 
 ## Client-Server Model
 
-<MDXImage src="/png/system-design/client-server.png" alt="Client-Server Model" />
+<MDXImage src="/png/hld/client-server.png" alt="Client-Server Model" />
 
 ### Client
 A **client** is a machine or process that requests data or services from a server.
@@ -150,7 +150,7 @@ DNS is a system that translates human-readable domain names into numerical IP ad
 
 ## Proxy
 
-<MDXImage src="/png/system-design/proxy.png" alt="Proxy" />
+<MDXImage src="/png/hld/proxy.png" alt="Proxy" />
 
 ### Forward Proxy
 
@@ -176,7 +176,7 @@ DNS is a system that translates human-readable domain names into numerical IP ad
 - **Least Connections**: Sends traffic to the server with the fewest active connections.
 - **IP Hash**: Distributes traffic based on the IP address of the client.
 
-<MDXImage src="/png/system-design/load-balancer.png" alt="Load Balancer" />
+<MDXImage src="/png/hld/load-balancer.png" alt="Load Balancer" />
 
 ## Latency and Throughput
 - **Latency** is the time delay between initiating a task and its completion.

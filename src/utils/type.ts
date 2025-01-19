@@ -9,5 +9,6 @@ export enum SidebarGroupEnum {
   'REACT' = 'React',
   'DOM' = 'DOM',
   'LLD' = 'LLD',
-  'DATABASE' = 'Database'
+  'DATABASE' = 'Database',
+  'SYSTEM_DESIGN' = 'System Design'
 }

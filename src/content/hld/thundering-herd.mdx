@@ -1,0 +1,65 @@
+---
+title: Thundering Herd
+tags: HLD
+---
+
+> 🛠️ Tackling the Thundering Herd Problem in System Design
+
+The **Thundering Herd Problem** can severely affect the performance and reliability of ticket booking systems, particularly during high-demand events like concert ticket sales.
+
+## 🌐 **System Design for Ticket Booking Applications**
+Ticket booking applications are designed to handle massive user traffic efficiently by employing the following mechanisms:
+1. **Load Balancers**:
+   - Distribute incoming requests across multiple instances of services.
+   - Prevent a single instance from being overwhelmed by traffic.
+
+2. **Queue and Thread Pool Executors**:
+   - Each instance has a queue that buffers incoming requests.
+   - A thread pool executor processes requests concurrently but limits the number of simultaneous requests to avoid overloading.
+
+## 🐘 **Thundering Herd Problem**
+When a high volume of requests hits the system suddenly, it creates a "thundering herd" effect.
+
+### 📉 Key Impacts:
+1. **Queue Saturation**:
+   - All queues fill up quickly, denying further requests.
+   - Denied requests trigger **retries**, further increasing the load.
+
+2. **Latency Surge**:
+   - Under full capacity, systems experience higher latency.
+   - Increased latency causes **timeouts**, leading to more retries.
+
+3. **Autoscaling Challenges**:
+   - Autoscaling adds new instances to handle increased demand.
+   - However, the retry storm often overwhelms the newly scaled system as well.
+
+## 🔁 **Mitigation Strategies**
+
+### 1. **Retry Strategies**
+Retries can worsen the problem unless handled carefully. Two effective strategies include:
+
+#### 📈 **Exponential Backoff**:
+   - **What it is**: Delays retries progressively based on the number of failures.
+   - **Why it works**: Reduces immediate load on the system by spacing out retries.
+
+   > Exponential Backoff -  **baseDelay * 2^retryCount**
+
+#### 🎲 **Jitter**:
+   - **What it is**: Adds randomness to exponential backoff intervals.
+   - **Why it works**: Prevents retries from synchronizing and creating another surge.
+
+
+
+**Example**:
+```java
+// Pseudo-code for Exponential Backoff with Jitter
+int retryCount = 0;
+int baseDelay = 100; // 100ms
+
+while (retryCount < MAX_RETRIES) {
+    int delay = baseDelay * Math.pow(2, retryCount);
+    int jitter = random(-50, 50); // Adding randomness
+    Thread.sleep(delay + jitter);
+    retryCount++;
+}
+```
