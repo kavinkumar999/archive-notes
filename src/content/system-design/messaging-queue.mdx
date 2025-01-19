@@ -1,0 +1,119 @@
+---
+title: "Messaging Queue"
+tag: "HLD"
+---
+
+## 📚 A Little Backstory of Messaging Queue
+
+We already know about **microservices architecture**, which is a way to build a system by breaking it down into smaller, independent services. 
+
+<MDXImage src="/png/system-design/microservice-architecture.png" alt="Microservices" />
+
+In a microservices architecture, communication between services is essential. However, the communication can be challenging because:
+- Services are **independent**.
+- They may run on **different machines** and **networks**.
+
+### 🔄 Types of Communication Between Services:
+
+1. **Synchronous Communication**:
+2. **Asynchronous Communication**:
+
+
+## ⏳ Synchronous Communication
+
+**Synchronous communication** involves sending a request from one service and waiting for a response before proceeding further. Examples include **RPC (Remote Procedure Call)** and **REST APIs**.
+
+- **Example**: Service A sends an HTTP request to Service B and waits for the response to continue its work. If Service B is slow or unavailable, Service A will be blocked until it gets the response. 🚧
+
+**Challenges with Synchronous Communication**:
+- **Blocking**: The sender waits for a response, causing delays.
+- **Tight Coupling**: Services need to be available at the same time.
+
+
+## 🔄 Asynchronous Communication
+
+**Asynchronous communication** allows services to send a message and continue working without waiting for a response. The response, if any, comes later. This is where **Messaging Queues** play a crucial role. 
+
+- **Example**: Service A sends a message to a queue, and Service B processes the message at a later time. Service A doesn't need to wait for Service B to be ready, enabling greater flexibility and non-blocking behavior. 🌐
+
+**Benefits of Asynchronous Communication**:
+- **Non-blocking**: Services continue their operations without waiting.
+- **Decoupling**: Services don’t need to be available at the same time.
+
+## 📤 Messaging Queue
+
+A **Messaging Queue** is a way to communicate between services **asynchronously** by sending messages to a queue. Services can retrieve and process the messages later without waiting for an immediate response.
+
+In the queuing model:
+- **Producers** push messages to the back of the queue.
+- **Consumers** pull messages from the front to process them.
+
+<MDXImage src="/png/system-design/message-queue.png" alt="Messaging Queue" />
+
+### 📩 Types of Messaging Queue:
+
+1. **Point-to-Point Messaging**:
+2. **Publish/Subscribe Messaging**:
+
+## 1️⃣ Point-to-Point Messaging
+
+In **Point-to-Point Messaging**, each message sent by a producer is consumed by a **single consumer**. It’s a **one-to-one** communication pattern.
+
+- **Example**: A **task queue** where a task (message) is picked up and processed by a worker (consumer). 🛠️
+  
+**Use Case**: Task distribution in backend systems, where each worker processes one task at a time.
+
+**Code Example**:
+```javascript
+// Producer
+queue.send('task', { task: 'do something' });
+
+// Consumer
+queue.receive('task', (message) => {
+  console.log('Received task:', message);
+  // Process the task
+});
+```
+
+## 📢 Publish/Subscribe Messaging
+
+In **Publish/Subscribe Messaging**, messages are sent to a **topic**, and multiple **subscribers** can listen to that topic and process the messages. It’s a **one-to-many** communication pattern.
+
+- **Example**: A **news feed** system where multiple users (subscribers) can subscribe to topics like "Technology" and receive updates as soon as a new article is published. 📡
+
+**Use Case**: Event-driven architectures, where multiple services react to events published by producers.
+
+**Code Example**:
+```javascript
+// Publisher
+topic.publish('technology', { article: 'new technology' });
+
+// Subscriber
+topic.subscribe('technology', (message) => {
+  console.log('Received technology update:', message);
+  // Process the update
+});
+```
+
+## 🛠️ Types of Queues:
+
+Here are some widely used messaging queue systems that implement various messaging models:
+
+- **RabbitMQ** 🐰: An open-source message broker supporting **Point-to-Point** and **Publish/Subscribe** patterns, typically using the AMQP protocol.
+- **Kafka** 🏞️: A distributed streaming platform designed for **high throughput** and **Publish/Subscribe** messaging. 
+
+### Summary 💡
+
+- **Messaging Queues** enable **asynchronous** communication between microservices, allowing systems to work more efficiently.
+- **Point-to-Point Messaging** is useful for **one-to-one** communication (e.g., task queues).
+- **Publish/Subscribe Messaging** is useful for **one-to-many** communication (e.g., event-driven systems).
+- Popular message queue systems include **RabbitMQ**, **Kafka**, **ActiveMQ**, and **RocketMQ**.
+
+By leveraging messaging queues in a microservices architecture, you can achieve:
+- **Scalability** 📈
+- **Fault Tolerance** 🛡️
+- **Decoupling** 🔄
+
+Messaging queues help systems process messages efficiently, even under high loads, without blocking or depending on other services' availability.
+
+---

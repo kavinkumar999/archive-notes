@@ -1,0 +1,71 @@
+---
+title: Distributed Transactions
+tag: HLD
+---
+
+Distributed transactions enable atomic operations across multiple services or databases in a distributed system. They're essential for maintaining data consistency when a single business operation spans multiple services, such as in microservices architectures.
+
+### **Types of Distributed Transactions**
+
+1. **Two-Phase Commit (2PC) & Three-Phase Commit (3PC)** ⚙️
+2. **Saga Pattern** 🎭
+
+
+### **1. Two-Phase Commit (2PC)** ⚙️
+- **Purpose**: Ensures atomicity in distributed transactions with a coordinator and participants.
+- **Phases**:
+  1. **Prepare**: Coordinator asks participants to prepare for commit.
+  2. **Commit/Abort**: If all agree, commit; otherwise, abort.
+- **Pros**: Simple and consistent.
+- **Cons**: Blocking, and a single point of failure.
+
+<MDXImage src="/png/system-design/2pc.png" alt="2PC" />
+
+
+### **1.1. Three-Phase Commit (3PC)** ⚙️
+- **Purpose**: Extends 2PC to reduce blocking and uncertainty.
+- **Phases**:
+  1. **Can Commit**: Coordinator asks if participants can commit.
+  2. **Pre-Commit**: Participants prepare to commit.
+  3. **Commit/Abort**: Final decision based on responses.
+- **Pros**: Non-blocking and fault-tolerant.
+- **Cons**: Higher complexity and latency.
+
+
+### **2. Saga Pattern** 🎭
+- **Purpose**: Breaks distributed transactions into smaller, independent steps, each with its own rollback action.
+- **Types**:
+  1. **Choreography**: Steps trigger each other via events.
+  2. **Orchestration**: A central controller manages the steps.
+- **Pros**: Highly scalable and flexible.
+- **Cons**: Eventual consistency and higher complexity.
+- **Example**: E-Commerce system:
+  1. Place order → Reserve inventory → Deduct payment.
+  2. On failure, trigger compensating actions (e.g., cancel order).
+
+## Design Patterns Comparison Matrix 📊
+
+| Aspect | 2PC 🔒 | 3PC 🔐 | Saga 🎭 |
+|--------|--------|--------|---------|
+| Communication Type | Synchronous | Synchronous | Asynchronous |
+| Consistency | Strong | Strong | Eventual |
+| Availability | Lower | Medium | High |
+| Network Usage | Medium | High | Low |
+| Recovery Complexity | Medium | High | Low |
+| Implementation Complexity | Medium | High | Medium |
+| Scalability | Limited | Limited | High |
+
+
+### **When to Use**
+- **2PC/3PC**: Use for critical, atomic transactions (e.g., financial systems). ⚙️
+- **Saga**: Use for scalable, long-running workflows (e.g., e-commerce, ticketing). 🎭
+
+## Use Case Decision Matrix 🎯
+
+| Requirement | Recommended Pattern |
+|-------------|-------------------|
+| Strict Consistency | 2PC/3PC 🔒 |
+| High Availability | Saga 🎭 |
+| Long-running Processes | Saga 🎭 |
+| Simple Transactions | 2PC 🔒 |
+| Complex Workflows | Orchestration Saga 🎭 |

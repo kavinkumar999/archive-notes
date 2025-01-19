@@ -141,7 +141,7 @@ export const systemDesignItems = [
     url: '/note/cryptographic-encrption'
   },
   {
-    name: 'Idempotency Design for POST',
+    name: 'Idempotency Design',
     url: '/note/idempotency-design'
   },
   {
@@ -149,8 +149,12 @@ export const systemDesignItems = [
     url: '/note/distributed-transactions'
   },
   {
-    name: 'Concurrency Control in Distributed System',
-    url: '/note/concurrency-control-distributed-system'
+    name: 'Concurrency Control',
+    url: '/note/concurrency-control'
+  },
+  {
+    name: 'Messaging Queue',
+    url: '/note/messaging-queue'
   }
 ];
 export const databaseItems = [

@@ -17,6 +17,8 @@ To address these issues, two primary strategies for handling concurrent transact
 
 ## **1. Pessimistic Concurrency Control**
 
+<MDXImage src="/png/system-design/locking.png" alt="Concurrency Control" />
+
 This approach involves acquiring locks before data is accessed, preventing other transactions from modifying the data. There are two types of locks:
 
 - **Shared Locks**: Allow multiple transactions to read the data concurrently. 📚
@@ -55,15 +57,6 @@ Optimistic Concurrency Control (OCC) assumes conflicts are rare and allows trans
 | **Rollback Frequency** | Low                        | High in conflict scenarios  |
 | **Best Use Case**      | High-contention environments | Low-contention environments |
 
-## Performance Comparison
-
-| Scenario | Pessimistic | Optimistic | Best Choice |
-|----------|-------------|------------|-------------|
-| Concert Tickets | ✅ | ❌ | Pessimistic |
-| Social Media Likes | ❌ | ✅ | Optimistic |
-| Bank Transfers | ✅ | ❌ | Pessimistic |
-| Product Views | ❌ | ✅ | Optimistic |
-
 ### When to Use Pessimistic Control
 1. Financial transactions 💰
 2. Limited resource allocation 🎫
@@ -75,6 +68,15 @@ Optimistic Concurrency Control (OCC) assumes conflicts are rare and allows trans
 2. Content management 📝
 3. Analytics systems 📊
 4. Read-heavy workloads 👀
+
+## Performance Comparison
+
+| Scenario | Pessimistic | Optimistic | Best Choice |
+|----------|-------------|------------|-------------|
+| Concert Tickets | ✅ | ❌ | Pessimistic |
+| Social Media Likes | ❌ | ✅ | Optimistic |
+| Bank Transfers | ✅ | ❌ | Pessimistic |
+| Product Views | ❌ | ✅ | Optimistic |
 
 ## TLDR 📌
 - Use Pessimistic Control for critical, high-contention operations 🛡️
