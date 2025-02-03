@@ -197,6 +197,10 @@ export const lldItems = [
   {
     name: 'Design Principles',
     url: '/note/design-principles'
+  },
+  {
+    name: 'Design Principles II',
+    url: '/note/design-principles-II'
   }
 ];
 

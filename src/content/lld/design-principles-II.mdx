@@ -1,0 +1,275 @@
+---
+title: Design Principles II
+tags: lld
+---
+
+1. **Law of Demeter (LoD)**
+2. **Boy Scout Rule**
+3. **Code for the Maintainer**
+4. **Principle of Least Astonishment (POLA)**
+5. **Tight Coupling vs. Loose Coupling**
+6. **Minimize Coupling & Maximize Cohesion**
+
+## 1. Law of Demeter (LoD)
+
+### Definition:
+The **Law of Demeter** (also known as the principle of least knowledge) states that a module should not know about the internal details of the objects it manipulates. It should only interact with its immediate dependencies.
+
+### Guideline:
+- A method should call only:
+  - Its own methods
+  - Methods on objects it creates
+  - Methods on objects passed to it
+  - Methods on its member variables
+
+<MDXImage src="/png/lld/lod.png" alt="Law of Demeter" />
+
+### Example:
+#### **Violating LoD**
+```java
+class Engine {
+    public void start() {
+        System.out.println("Engine started");
+    }
+}
+
+class Car {
+    private Engine engine;
+    
+    public Car() {
+        this.engine = new Engine();
+    }
+    
+    public Engine getEngine() {
+        return engine;
+    }
+}
+
+class Driver {
+    public void startCar(Car car) {
+        car.getEngine().start(); // Violates LoD
+    }
+}
+```
+
+#### **Following LoD**
+```java
+class Car {
+    private Engine engine;
+    
+    public Car() {
+        this.engine = new Engine();
+    }
+    
+    public void start() {
+        engine.start(); // Encapsulation
+    }
+}
+
+class Driver {
+    public void startCar(Car car) {
+        car.start(); // Follows LoD
+    }
+}
+```
+
+
+## 2. The Boy Scout Rule
+
+### Definition:
+"Always leave the code better than you found it."
+
+### Application:
+- Refactor code when necessary.
+- Improve readability and maintainability.
+- Remove duplicate or unused code.
+
+<MDXImage src="/png/lld/lcc.png" alt="Boy Scout Rule" />
+
+### Example:
+Before applying the **Boy Scout Rule**:
+```java
+class User {
+    public String firstName;
+    public String lastName;
+}
+```
+After refactoring:
+```java
+class User {
+    private String firstName;
+    private String lastName;
+    
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+}
+```
+
+
+## 3. Code for the Maintainer
+
+### Definition:
+Write code that is **readable**, **self-explanatory**, and **well-documented** for future maintainers.
+
+### Best Practices:
+- Use meaningful variable/method names.
+- Write clear comments.
+- Avoid complex logic when possible.
+- Follow coding conventions.
+
+### Example:
+Poorly written code:
+```java
+class C {
+    int x;
+    int y;
+    void p() {
+        x = 10;
+        y = 20;
+        System.out.println(x + y);
+    }
+}
+```
+Refactored, readable code:
+```java
+class Calculator {
+    private int firstNumber;
+    private int secondNumber;
+    
+    public void setNumbers(int a, int b) {
+        this.firstNumber = a;
+        this.secondNumber = b;
+    }
+    
+    public void printSum() {
+        System.out.println(firstNumber + secondNumber);
+    }
+}
+```
+
+
+## 4. Principle of Least Astonishment (POLA)
+
+### Definition:
+The system should behave in a way that **minimizes surprises** for users and developers.
+
+<MDXImage src="/png/lld/pola.png" alt="Principle of Least Astonishment" />
+
+### Example:
+#### **Violating POLA**
+```java
+class LightSwitch {
+    public void toggle() {
+        System.out.println("Fan turned ON"); // Unexpected behavior
+    }
+}
+```
+#### **Following POLA**
+```java
+class LightSwitch {
+    private boolean isOn = false;
+    
+    public void toggle() {
+        isOn = !isOn;
+        System.out.println(isOn ? "Light turned ON" : "Light turned OFF");
+    }
+}
+```
+
+
+## 5. Tight Coupling vs. Loose Coupling
+
+### Definition:
+- **Tightly Coupled**: Classes depend heavily on each other.
+- **Loosely Coupled**: Classes have minimal dependencies and interact via interfaces.
+
+<MDXImage src="/png/lld/tight-loose-coupling.png" alt="Tight Coupling vs. Loose Coupling" />
+### Example:
+#### **Tightly Coupled Code (Bad)**
+```java
+class EmailService {
+    public void sendEmail(String message) {
+        System.out.println("Email sent: " + message);
+    }
+}
+
+class Notification {
+    private EmailService emailService = new EmailService();
+    
+    public void notifyUser() {
+        emailService.sendEmail("Hello User");
+    }
+}
+```
+#### **Loosely Coupled Code (Good)**
+```java
+interface MessageService {
+    void sendMessage(String message);
+}
+
+class EmailService implements MessageService {
+    public void sendMessage(String message) {
+        System.out.println("Email sent: " + message);
+    }
+}
+
+class Notification {
+    private MessageService messageService;
+    
+    public Notification(MessageService messageService) {
+        this.messageService = messageService;
+    }
+    
+    public void notifyUser() {
+        messageService.sendMessage("Hello User");
+    }
+}
+```
+
+## 6. Minimize Coupling & Maximize Cohesion
+
+### Definition:
+- **Minimizing Coupling**: Reduce dependencies between modules.
+- **Maximizing Cohesion**: Keep related functionalities together.
+
+<MDXImage src="/png/lld/coupling-cohesion.png" alt="Minimize Coupling & Maximize Cohesion" />
+
+### Example:
+#### **Low Cohesion (Bad Design)**
+```java
+class Employee {
+    String name;
+    int age;
+    
+    public void calculateSalary() {
+        // Salary calculation logic (Unrelated responsibility)
+    }
+}
+```
+#### **High Cohesion (Good Design)**
+```java
+class Employee {
+    String name;
+    int age;
+}
+
+class SalaryCalculator {
+    public double calculateSalary(Employee emp) {
+        // Properly encapsulated salary logic
+        return 50000.0;
+    }
+}
+```
+
+
+## Summary:
+| Principle | Key Idea |
+|-----------|---------|
+| **Law of Demeter** | Reduce unnecessary dependencies |
+| **Boy Scout Rule** | Leave the code cleaner than you found it |
+| **Code for the Maintainer** | Write readable and maintainable code |
+| **Principle of Least Astonishment** | Avoid unexpected behavior in code |
+| **Tight Coupling vs. Loose Coupling** | Prefer loose coupling using interfaces |
+| **Minimize Coupling & Maximize Cohesion** | Reduce dependencies, keep related logic together |
+

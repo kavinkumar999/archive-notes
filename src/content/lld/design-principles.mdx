@@ -10,165 +10,227 @@ tags: lld
 5. **Favor Composition over Inheritance**
 6. **Program to Interface, not Implementation**
 
-### 1. DRY - Don't Repeat Yourself
+## 1. DRY (Don't Repeat Yourself)
 
-**Definition:**  
-Each piece of code should appear only once in the entire system. Duplicating code across multiple locations makes maintenance harder and increases inconsistencies.
+### Explanation
+DRY is a principle aimed at reducing code duplication by ensuring that each piece of knowledge or logic is represented in a single place. This makes the code more maintainable and less prone to errors.
 
-**Solution:**  
-Modularize your source code by writing each task as a separate method, promoting code reuse.
-
-**Example of Poor Coding:**
-
+### Example
+**Bad Practice (Violation of DRY):**
 ```java
-public class AreaCalculator {
-    public static void main(String[] args) {
-        // Area of rectangle
-        double length = 5.0;
-        double width = 3.0;
-        double rectangleArea = length * width;
-        System.out.println("Area of rectangle: " + rectangleArea);
+class Employee {
+    private String name;
+    private double salary;
+    
+    public double calculateBonus() {
+        return salary * 0.1; // Bonus calculation logic duplicated
+    }
+}
 
-        // Area of circle
-        double radius = 4.0;
-        double circleArea = Math.PI * radius * radius;
-        System.out.println("Area of circle: " + circleArea);
+class Manager extends Employee {
+    public double calculateBonus() {
+        return getSalary() * 0.1; // Same logic repeated
     }
 }
 ```
 
-**Violation:** Code duplication in area calculation.
-
-**Example of Best Coding Practice:**
-
+**Good Practice (Following DRY):**
 ```java
-public class AreaCalculator {
-    public static void main(String[] args) {
-        double length = 5.0;
-        double width = 3.0;
-        double rectangleArea = calculateRectangleArea(length, width);
-        System.out.println("Area of rectangle: " + rectangleArea);
+class Employee {
+    private String name;
+    private double salary;
+    
+    public double calculateBonus() {
+        return salary * 0.1;
+    }
+}
 
-        double radius = 4.0;
-        double circleArea = calculateCircleArea(radius);
-        System.out.println("Area of circle: " + circleArea);
+class Manager extends Employee {
+    // No duplication; reuses the calculateBonus method
+}
+```
+
+
+## 2. KISS (Keep It Simple and Stupid)
+
+### Explanation
+KISS encourages writing simple, easy-to-understand code rather than overcomplicating logic with unnecessary complexity.
+
+### Example
+**Bad Practice (Violation of KISS):**
+```java
+if (isUserLoggedIn && (userRole.equals("ADMIN") || userRole.equals("MODERATOR")) && isNotBanned) {
+    grantAccess();
+}
+```
+
+**Good Practice (Following KISS):**
+```java
+boolean hasAccess = isUserLoggedIn && (isAdmin() || isModerator()) && isNotBanned;
+if (hasAccess) {
+    grantAccess();
+}
+```
+
+
+## 3. YAGNI (You Ain't Gonna Need It)
+
+### Explanation
+YAGNI suggests that you should not add functionality until it is actually needed. This helps avoid unnecessary complexity and reduces maintenance overhead.
+
+<MDXImage src="/png/lld/yagni.png" alt="YAGNI" />
+
+### Example
+**Bad Practice (Violation of YAGNI):**
+```java
+class User {
+    private String username;
+    private String email;
+    private String phoneNumber; // Added without requirement
+    private String address; // Added without requirement
+}
+```
+
+**Good Practice (Following YAGNI):**
+```java
+class User {
+    private String username;
+    private String email;
+    // Only required fields included
+}
+```
+
+
+## 4. SoC (Separation of Concerns)
+
+### Explanation
+Separation of Concerns (SoC) means that a software system should be divided into distinct sections, each handling a specific responsibility.
+
+### Example
+**Bad Practice (Violation of SoC):**
+```java
+class UserManager {
+    public void saveUser(User user) {
+        // Database logic
     }
 
-    private static double calculateRectangleArea(double length, double width) {
-        return length * width;
-    }
-
-    private static double calculateCircleArea(double radius) {
-        return Math.PI * radius * radius;
+    public void sendEmail(User user) {
+        // Email sending logic
     }
 }
 ```
 
----
-
-### 2. KISS - Keep It Simple and Stupid
-
-**Definition:**  
-Code should be simple, easy to understand, and straightforward to debug and modify. This reduces complexity and minimizes bugs.
-
-**Example of Poor Coding:**
-
+**Good Practice (Following SoC):**
 ```java
-public class Factorial {
-    public static void main(String[] args) {
-        // Complex logic for simple factorial calculation.
+class UserRepository {
+    public void save(User user) {
+        // Database logic
+    }
+}
+
+class EmailService {
+    public void sendEmail(User user) {
+        // Email sending logic
     }
 }
 ```
 
-**Example of Best Coding Practice:**
 
+## 5. Favor Composition over Inheritance
+
+### Explanation
+Instead of using inheritance (which creates rigid hierarchies), favor composition to make code more flexible and maintainable.
+
+<MDXImage src="/png/lld/composition-inheritance.png" alt="Composition Over Inheritance" />
+
+### Example
+**Bad Practice (Violation of Composition Over Inheritance):**
 ```java
-public class Factorial {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number: ");
-        int number = scanner.nextInt();
-
-        if (number < 0) {
-            System.out.println("Factorial is not defined for negative numbers.");
-        } else {
-            long factorial = calculateFactorial(number);
-            System.out.println("Factorial of " + number + " is " + factorial);
-        }
+class Engine {
+    public void start() {
+        System.out.println("Engine started");
     }
+}
 
-    private static long calculateFactorial(int n) {
-        long result = 1;
-        for (int i = 2; i <= n; i++) {
-            result *= i;
-        }
-        return result;
+class Car extends Engine {
+    public void drive() {
+        start();
+        System.out.println("Car is driving");
     }
 }
 ```
 
----
-
-### 3. YAGNI - You Ain't Gonna Need It
-
-**Definition:**  
-Implement features only when they are needed. Avoid premature optimization or over-engineering.
-
-**Example of Poor Coding:** Includes unnecessary discount handling in a shopping cart class.
-
-**Example of Best Coding Practice:** Focus only on essential functionality for the current requirements.
-
----
-
-### 4. SoC - Separation of Concerns
-
-**Definition:**  
-Organize code into distinct sections, each addressing a specific concern. This promotes modularity and scalability.
-
-**Example of Poor Coding:**  
-Combines user input, validation, and display logic in a single class.
-
-**Example of Best Coding Practice:**  
-Separate these concerns into different classes.
-
----
-
-### 5. Favor Composition over Inheritance
-
-**Definition:**  
-Prefer composing objects rather than relying on inheritance. This supports "has a" relationships and enhances flexibility.
-
-**Example of Poor Coding:**
-
+**Good Practice (Following Composition Over Inheritance):**
 ```java
-class Vehicle {
-    void start() {
-        System.out.println("Vehicle is starting");
+class Engine {
+    public void start() {
+        System.out.println("Engine started");
+    }
+}
+
+class Car {
+    private Engine engine;
+    
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+    
+    public void drive() {
+        engine.start();
+        System.out.println("Car is driving");
     }
 }
 ```
 
-**Example of Best Coding Practice:** Use composition to include functionality in classes like `Engine`, `Horn`, and `Bell`.
 
----
+## 6. Program to Interface, Not Implementation
 
-### 6. Program to Interface, not Implementation
+### Explanation
+Code should depend on interfaces rather than concrete implementations, making the system more modular and flexible.
 
-**Definition:**  
-Use interfaces to decouple code from specific implementations, enhancing flexibility.
-
-**Example of Poor Coding:**  
-Directly uses concrete classes, leading to tighter coupling.
-
-**Example of Best Coding Practice:**  
-
+### Example
+**Bad Practice (Violation of this Principle):**
 ```java
-interface Drivable {
-    void drive();
+class MySQLDatabase {
+    public void connect() {
+        System.out.println("Connecting to MySQL");
+    }
+}
+
+class Application {
+    private MySQLDatabase database;
+    
+    public Application(MySQLDatabase database) {
+        this.database = database;
+    }
+    
+    public void start() {
+        database.connect();
+    }
 }
 ```
 
----
+**Good Practice (Following the Principle):**
+```java
+interface Database {
+    void connect();
+}
 
-**Key Takeaway:** Applying these principles results in cleaner, more maintainable, and scalable code.
+class MySQLDatabase implements Database {
+    public void connect() {
+        System.out.println("Connecting to MySQL");
+    }
+}
+
+class Application {
+    private Database database;
+    
+    public Application(Database database) {
+        this.database = database;
+    }
+    
+    public void start() {
+        database.connect();
+    }
+}
+```
