@@ -125,3 +125,74 @@ If we remove **Server C**, then **Key 2** (which was assigned to Server C) will 
 3. **Load Balancing**: Some load balancers use consistent hashing to route traffic to different servers based on the hash of the incoming request.
 
 **Note**: The hash functions (e.g., MD5, SHA-1) used for mapping servers and data to the ring can vary based on the system's needs.
+
+## Example Implementation
+
+```java
+import java.util.*;
+
+class ConsistentHashing {
+    private final TreeMap<Integer, String> ring = new TreeMap<>();
+    private final int VIRTUAL_NODES = 3;  // Virtual nodes to balance the distribution
+    private final int HASH_SPACE = Integer.MAX_VALUE;  // 32-bit hash space
+
+    private int hash(String key) {
+        return key.hashCode() & HASH_SPACE;  // Simple hash function
+    }
+
+    public void addNode(String node) {
+        for (int i = 0; i < VIRTUAL_NODES; i++) {
+            int hash = hash(node + i);
+            ring.put(hash, node);
+            System.out.println("Added node " + node + " with hash " + hash);
+        }
+    }
+
+    public void removeNode(String node) {
+        for (int i = 0; i < VIRTUAL_NODES; i++) {
+            int hash = hash(node + i);
+            ring.remove(hash);
+            System.out.println("Removed node " + node + " with hash " + hash);
+        }
+    }
+
+    public String getNode(String key) {
+        if (ring.isEmpty()) return null;
+        int keyHash = hash(key);
+        // Find the next node in the hash ring (circular behavior)
+        Map.Entry<Integer, String> entry = ring.ceilingEntry(keyHash);
+        if (entry == null) {
+            return ring.firstEntry().getValue();  // Wrap around to the first node
+        }
+        return entry.getValue();
+    }
+
+    public void printRing() {
+        System.out.println("Hash Ring: " + ring);
+    }
+
+    public static void main(String[] args) {
+        ConsistentHashing ch = new ConsistentHashing();
+
+        // Adding nodes
+        ch.addNode("Node1");
+        ch.addNode("Node2");
+        ch.addNode("Node3");
+
+        ch.printRing();
+
+        // Mapping some keys
+        System.out.println("Key 'Apple' is assigned to " + ch.getNode("Apple"));
+        System.out.println("Key 'Banana' is assigned to " + ch.getNode("Banana"));
+
+        // Removing a node
+        ch.removeNode("Node2");
+
+        ch.printRing();
+
+        // Checking mapping after removal
+        System.out.println("Key 'Apple' is now assigned to " + ch.getNode("Apple"));
+        System.out.println("Key 'Banana' is now assigned to " + ch.getNode("Banana"));
+    }
+}
+```
