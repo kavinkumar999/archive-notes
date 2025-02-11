@@ -165,6 +165,10 @@ export const hldItems = [
   {
     name: 'Messaging Queue',
     url: '/note/messaging-queue'
+  },
+  {
+    name: 'Back of the Envelope',
+    url: '/note/back-of-the-envelope'
   }
 ];
 export const databaseItems = [

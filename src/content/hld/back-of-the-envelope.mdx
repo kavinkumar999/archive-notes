@@ -1,0 +1,179 @@
+---
+title: Back of the Envelope
+tags: HLD
+---
+
+
+## **1️⃣ What is Back-of-the-Envelope Calculation?** 📝  
+Back-of-the-envelope (BOE) calculations are quick, rough estimates used to evaluate the feasibility of a system before designing it in detail. These help in estimating storage, bandwidth, memory, and processing needs efficiently.  
+
+### **Why is it important?**  
+✅ Helps determine if a system is scalable before implementation.  
+✅ Ensures resource allocation is practical.  
+✅ Provides rough but useful insights into system feasibility.  
+✅ Shows structured thinking in system design interviews.  
+
+
+## **2️⃣ Understanding Data Size Conversions 🔢**  
+Before diving into calculations, let's define unit conversions to avoid confusion:  
+
+### **Data Size Units**
+| **Unit** 📏 | **Equivalent Value** |
+|------------|---------------------|
+| **1 KB (Kilobyte)** | 1,000 bytes = **10³ bytes** |
+| **1 MB (Megabyte)** | 1,000 KB = **10⁶ bytes** |
+| **1 GB (Gigabyte)** | 1,000 MB = **10⁹ bytes** |
+| **1 TB (Terabyte)** | 1,000 GB = **10¹² bytes** |
+| **1 PB (Petabyte)** | 1,000 TB = **10¹⁵ bytes** |
+| **1 EB (Exabyte)** | 1,000 PB = **10¹⁸ bytes** |
+
+### **Large Number Notations**
+| **Name** | **Value** | **Scientific Notation** | **Zeros** |
+|----------|-----------|------------------------|-----------|
+| **Thousand** | 1,000 | 10³ | 1,000 |
+| **Million** | 1,000,000 | 10⁶ | 1,000,000 |
+| **Billion** | 1,000,000,000 | 10⁹ | 1,000,000,000 |
+| **Trillion** | 1,000,000,000,000 | 10¹² | 1,000,000,000,000 |
+| **Quadrillion** | 1,000,000,000,000,000 | 10¹⁵ | 1,000,000,000,000,000 |
+| **Quintillion** | 1,000,000,000,000,000,000 | 10¹⁸ | 1,000,000,000,000,000,000 |
+
+### **Quick Reference for Calculations**
+- 1 Million = 1M = 10⁶
+- 1 Billion = 1B = 10⁹
+- 1 Trillion = 1T = 10¹²
+
+📌 **Example:**  
+A **5 MB file** = **5 × 1,000 × 1,000 bytes** = **5,000,000 bytes (5 million bytes).**  
+
+
+## **3️⃣ Traffic Estimation (Requests Per Second - RPS) ⚡**  
+Estimating the number of requests a system handles helps in designing load balancers, databases, and caching systems.  
+
+### **Formula:**  
+```
+Total RPS = Total Users * Active Users Ratio * Requests per Active User per Second
+```
+
+### **Example Calculation:**  
+🔹 **Given:**  
+- A system has **100 million** registered users.  
+- **10% are active daily** → **10 million active users**.  
+- Each user makes **10 requests per minute**.  
+
+🔹 **Calculation:**  
+- Requests per second per user = **\(10/60 = 0.167\) requests per second**.  
+- Total RPS:  
+  ```
+  10,000,000 * 0.167 = 1,670,000 { RPS (1.67 million requests/sec)}
+  ```
+
+
+## **4️⃣ Storage Estimation 🏦**  
+Estimating storage helps in planning databases, replication, and backup strategies.  
+
+### **Formula:**  
+```
+Total Storage per Year = Data per Request * Total Requests per Year
+```
+
+### **Example Calculation:**  
+🔹 **Given:**  
+- Each request generates **2 KB** of data.  
+- System handles **1.67 million RPS**.  
+- Requests per year:  
+  ```
+  1.67 * 10^6 * 60 * 60 * 24 * 365
+  ```
+  ```
+  = 52.6 * 10^{12} { (52.6 trillion requests per year)}
+  ```
+
+🔹 **Storage Required:**  
+  ```
+  52.6 * 10^{12} * 2 { KB} = 105.2 { PB per year}
+  ```
+
+🔹 **Considering Replication & Backups:**  
+- If **3x replication**, total storage = **315.6 PB per year**.  
+- If backups are kept for **one year**, total storage needed = **631.2 PB**.  
+
+📌 **Scale Reference:**  
+- **1 PB = 1,000 TB**  
+- **1 PB ≈ Storage of 223 million HD movies (4.5 GB each)**  
+
+
+## **5️⃣ Memory Estimation (Cache & DB Indexing) 🛠️**  
+Determining cache size ensures efficient system performance.  
+
+### **Cache Size Estimation Formula:**  
+```
+Cache Size = Data per Object * Objects Stored in Cache
+```
+
+### **Example Calculation:**  
+🔹 **Given:**  
+- **20% of requests are cached**.  
+- Each cached response = **2 KB**.  
+- System handles **1.67M RPS**.  
+
+🔹 **Calculation:**  
+- Data in cache per second =  
+  ```
+  1.67 * 10^6 * 0.2 * 2 = 670 { MB per second}
+  ```
+- Data stored in cache for **1 hour**:  
+  ```
+  670 * 3,600 = 2.41 { TB}
+  ```
+- **Total RAM required ≈ 2.5 TB**.  
+
+
+## **6️⃣ Quick Cheat Sheet for BOE Calculations 📌**  
+| **Metric** 🛠️ | **Formula** |
+|------------|---------|
+| **Requests Per Second (RPS)** | Users × Active Ratio × Requests per User |
+| **Storage Per Year** | RPS × Data per Request × Seconds in a Year |
+| **Cache Size** | Cache % × RPS × Data per Object × Cache Retention Time |
+| **Bandwidth** | RPS × Data per Response |
+| **CPU Servers Needed** | (RPS × CPU Time per Request) / (Cores per Server × Utilization) |
+
+
+## **7️⃣ CPU Server Estimation 🖥️**
+Calculating required servers is crucial for capacity planning and cost estimation.
+
+### **Formula:**
+```
+Number of Servers = (RPS × CPU time per request) / (Cores per server × Core utilization × Seconds)
+```
+
+### **Example Calculation:**
+🔹 **Given:**
+- System handles **1.67M RPS**
+- Each request takes **50ms** (0.05s) of CPU time
+- Each server has **32 cores**
+- Target CPU utilization: **80%** (0.8)
+
+🔹 **Calculation:**
+```
+Servers = (1,670,000 × 0.05) / (32 × 0.8 × 1)
+        = 83,500 / 25.6
+        ≈ 3,262 servers
+```
+
+### **Server Capacity Planning Matrix**
+| **Request Complexity** | **CPU Time** | **Max RPS per Core** |
+|----------------------|--------------|---------------------|
+| **Light** (cache hit) | 1ms | 1,000 |
+| **Medium** (DB read) | 10ms | 100 |
+| **Heavy** (DB write/compute) | 50ms | 20 |
+| **Very Heavy** (complex computation) | 100ms | 10 |
+
+
+**Example with Buffers:**
+```
+Base servers needed = 3,262
+Peak load buffer (2x) = 6,524
+Growth buffer (50%) = 9,786
+Redundancy (30%) = 12,722 servers
+```
+
